@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/OverviewFragment">
+
+    <fragment
+        android:id="@+id/OverviewFragment"
+        android:name="com.airongomes.listadetarefas.overview.OverviewFragment"
+        android:label="OverviewFragment"
+        tools:layout="@layout/fragment_overview">
+        <action
+            android:id="@+id/action_overviewFragment_to_newTaskFragment"
+            app:destination="@id/NewTaskFragment"
+            app:popUpTo="@id/OverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NewTaskFragment"
+        android:name="com.airongomes.listadetarefas.newTask.NewTaskFragment"
+        android:label="NewTaskFragment"
+        tools:layout="@layout/fragment_new_task">
+        <action
+            android:id="@+id/action_NewTaskFragment_to_OverviewFragment"
+            app:destination="@id/OverviewFragment"
+            app:popUpTo="@id/OverviewFragment" />
+    </fragment>
+</navigation>

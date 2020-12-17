@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.airongomes.listadetarefas.newTask.NewTaskViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/lb_newTask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:text="Nova Tarefa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:hint="Título:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lb_newTask" />
+
+        <EditText
+            android:id="@+id/edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:hint="Descrição:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_title" />
+
+        <TextView
+            android:id="@+id/lb_importance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Prioridade:"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_description" />
+
+        <RadioGroup
+            android:id="@+id/importanceLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/importanceLow"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lb_importance">
+
+            <RadioButton
+                android:id="@+id/importanceLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Baixa"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="69dp"
+                tools:layout_editor_absoluteY="222dp" />
+
+            <RadioButton
+                android:id="@+id/importanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Média"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="69dp"
+                tools:layout_editor_absoluteY="270dp" />
+
+            <RadioButton
+                android:id="@+id/importanceHigh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alta"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Botão: Confirmar Tarefa"
+            android:text="ok"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/importanceLevel" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Botão: Confirmar Tarefa"
+            android:text="cancelar"
+            android:onClick="@{() -> viewModel.cancelTask()}"
+            app:backgroundTint="#C2185B"
+            app:layout_constraintStart_toEndOf="@id/button_ok"
+            app:layout_constraintTop_toBottomOf="@+id/importanceLevel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
