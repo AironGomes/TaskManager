@@ -1,6 +1,7 @@
 package com.airongomes.listadetarefas.newTask
 
 import android.app.Application
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.airongomes.listadetarefas.database.TaskListDao
@@ -18,6 +19,8 @@ class NewTaskViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NewTaskViewModel::class.java)) {
             return NewTaskViewModel(dataSource, application) as T
+//            return NewTaskViewModel() as T
+
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

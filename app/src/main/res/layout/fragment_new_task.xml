@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp">
@@ -49,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/edit_title" />
 
         <TextView
-            android:id="@+id/lb_importance"
+            android:id="@+id/lb_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -60,16 +61,16 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
         <RadioGroup
-            android:id="@+id/importanceLevel"
+            android:id="@+id/priorityLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@id/importanceLow"
+            android:checkedButton="@id/priorityLow"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lb_importance">
+            app:layout_constraintTop_toBottomOf="@+id/lb_priority">
 
             <RadioButton
-                android:id="@+id/importanceLow"
+                android:id="@+id/priorityLow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Baixa"
@@ -78,7 +79,7 @@
                 tools:layout_editor_absoluteY="222dp" />
 
             <RadioButton
-                android:id="@+id/importanceMedium"
+                android:id="@+id/priorityMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Média"
@@ -87,12 +88,45 @@
                 tools:layout_editor_absoluteY="270dp" />
 
             <RadioButton
-                android:id="@+id/importanceHigh"
+                android:id="@+id/priorityHigh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Alta"
                 android:textSize="18sp" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/lb_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Data prevista:"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/priorityLevel" />
+
+        <Button
+            android:id="@+id/button_setDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Botão: Definir data"
+            android:text="Definir data"
+            android:onClick="@{() -> viewModel.chooseDate()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lb_forecast" />
+
+        <TextView
+            android:id="@+id/lb_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:showDateString="@{viewModel.dateTask}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
+            app:layout_constraintStart_toEndOf="@id/button_setDate" />
 
         <Button
             android:id="@+id/button_ok"
@@ -101,8 +135,9 @@
             android:layout_marginTop="8dp"
             android:contentDescription="Botão: Confirmar Tarefa"
             android:text="ok"
+            android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importanceLevel" />
+            app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
 
         <Button
             android:id="@+id/button_cancel"
@@ -115,7 +150,7 @@
             android:onClick="@{() -> viewModel.cancelTask()}"
             app:backgroundTint="#C2185B"
             app:layout_constraintStart_toEndOf="@id/button_ok"
-            app:layout_constraintTop_toBottomOf="@+id/importanceLevel" />
+            app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
