@@ -22,7 +22,7 @@
             android:fontFamily="@font/roboto"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:text="Nova Tarefa"
+            android:text="@string/lb_title_newTask"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -33,8 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
-            android:hint="Título:"
+            android:hint="@string/hint_title"
             android:textSize="20sp"
+            android:inputType="textCapSentences"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lb_newTask" />
 
@@ -44,8 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
-            android:hint="Descrição:"
+            android:hint="@string/hint_description"
             android:textSize="18sp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine|textCapSentences"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_title" />
 
@@ -54,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Prioridade:"
+            android:text="@string/lb_priority"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,22 +104,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Data prevista:"
+            android:text="@string/lb_forecastDate"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/priorityLevel" />
-
-        <Button
-            android:id="@+id/button_setDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:contentDescription="Botão: Definir data"
-            android:text="Definir data"
-            android:onClick="@{() -> viewModel.chooseDate()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lb_forecast" />
 
         <TextView
             android:id="@+id/lb_date"
@@ -124,17 +117,30 @@
             android:layout_marginStart="8dp"
             android:textAlignment="center"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:showDateString="@{viewModel.dateTask}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
-            app:layout_constraintStart_toEndOf="@id/button_setDate" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/lb_forecast"
+            app:layout_constraintStart_toEndOf="@+id/lb_forecast"
+            tools:text="01 Jan 2021"/>
+
+        <Button
+            android:id="@+id/button_setDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/contDenc_buttonDefineDate"
+            android:text="@string/button_defineDate"
+            android:onClick="@{() -> viewModel.chooseDate()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lb_forecast" />
 
         <Button
             android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:contentDescription="Botão: Confirmar Tarefa"
-            android:text="ok"
+            android:contentDescription="@string/contDesc_buttonOk"
+            android:text="@string/button_ok"
             android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
@@ -145,8 +151,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:contentDescription="Botão: Confirmar Tarefa"
-            android:text="cancelar"
+            android:contentDescription="@string/contDesc_button_cancel"
+            android:text="@string/button_cancel"
             android:onClick="@{() -> viewModel.cancelTask()}"
             app:backgroundTint="#C2185B"
             app:layout_constraintStart_toEndOf="@id/button_ok"

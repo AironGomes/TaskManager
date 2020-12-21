@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Lista de Tarefas</string>
+    <string name="lb_button_add_newTask">Adicionar nova tarefa</string>
+    <string name="lb_title_newTask">Nova Tarefa</string>
+    <string name="hint_title">Título:</string>
+    <string name="hint_description">Descrição:</string>
+    <string name="lb_priority">Prioridade:</string>
+    <string name="lb_forecastDate">Data prevista:</string>
+    <string name="button_defineDate">Definir data</string>
+    <string name="button_ok">OK</string>
+    <string name="contDesc_buttonOk">Botão: Confirmar Tarefa</string>
+    <string name="contDenc_buttonDefineDate">Botão: Definir data</string>
+    <string name="contDesc_button_cancel">Botão: Cancelar</string>
+    <string name="button_cancel">cancelar</string>
+    <string name="contDesc_addNewTask">Botão: Adicionar nova tarefa</string>
 </resources>

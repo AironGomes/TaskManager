@@ -24,7 +24,22 @@ fun TextView.itemDescription(task: Task?) {
 fun TextView.setDate(task: Task?) {
     task?.let {
         if (task.day != null && task.month != null && task.year != null) {
-            val dateString = "${task.day}/${task.month}/${task.year}"
+            var monthString = ""
+            when(task.month) {
+                0 -> monthString = "Jan"
+                1 -> monthString = "Fev"
+                2 -> monthString = "Mar"
+                3 -> monthString = "Abr"
+                4 -> monthString = "Mai"
+                5 -> monthString = "Jun"
+                6 -> monthString = "Jul"
+                7 -> monthString = "Ago"
+                8 -> monthString = "Set"
+                9 -> monthString = "Out"
+                10 -> monthString = "Nov"
+                11 -> monthString = "Dez"
+            }
+            val dateString = "${task.day} $monthString"
             text = dateString
         }
     }
@@ -36,7 +51,22 @@ fun TextView.showDateString(date: Calendar?) {
         val day = date.get(Calendar.DAY_OF_MONTH)
         val month = date.get(Calendar.MONTH)
         val year = date.get(Calendar.YEAR)
-        val dateString = "$day/$month/$year"
+        var monthString = ""
+        when(month) {
+            0 -> monthString = "Jan"
+            1 -> monthString = "Fev"
+            2 -> monthString = "Mar"
+            3 -> monthString = "Abr"
+            4 -> monthString = "Mai"
+            5 -> monthString = "Jun"
+            6 -> monthString = "Jul"
+            7 -> monthString = "Ago"
+            8 -> monthString = "Set"
+            9 -> monthString = "Out"
+            10 -> monthString = "Nov"
+            11 -> monthString = "Dez"
+        }
+        val dateString = "$day $monthString $year"
         text = dateString
     }
 }

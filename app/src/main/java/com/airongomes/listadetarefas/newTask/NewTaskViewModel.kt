@@ -35,22 +35,33 @@ class NewTaskViewModel(
     val chooseDate: LiveData<Boolean>
         get() = _chooseDate
 
+    // LiveData used to show error message of empty title
+    private var _emptyTitle = MutableLiveData<Boolean>()
+    val emptyTitle: LiveData<Boolean>
+        get() = _emptyTitle
+
     /**
      * This function is responsible to insert the task to the database.
      * @param: View: is the ViewGroup from the fragment_new_task
      */
     fun saveTask(view: View) {
-        val task = Task()
-        task.title = view.edit_title.text.toString()
-        task.description = view.edit_description.text.toString()
-        task.year = dateTask.value?.get(Calendar.YEAR)
-        task.month = dateTask.value?.get(Calendar.MONTH)
-        task.day = dateTask.value?.get(Calendar.DAY_OF_MONTH)
-
-        viewModelScope.launch {
-            database.insert(task)
+        if (view.edit_title.text.isEmpty()) {
+            _emptyTitle.value = true
         }
-        _closeFragment.value = true
+        else {
+            val task = Task()
+            task.title = view.edit_title.text.toString()
+            task.description = view.edit_description.text.toString()
+            task.year = dateTask.value?.get(Calendar.YEAR)
+            task.month = dateTask.value?.get(Calendar.MONTH)
+            task.day = dateTask.value?.get(Calendar.DAY_OF_MONTH)
+
+
+            viewModelScope.launch {
+                database.insert(task)
+            }
+            _closeFragment.value = true
+        }
     }
 
     /**
@@ -86,6 +97,20 @@ class NewTaskViewModel(
      */
     fun getDate(date: Calendar) {
         _dateTask.value = date
+    }
+
+    /**
+     * This function is responsible to reset the _emptyTitle.value
+     */
+    fun emptyTitleMessageShowed() {
+        _emptyTitle.value = false
+    }
+
+    /**
+     * This function is responsible to reset the LiveData dateTask
+     */
+    fun resetDateTask() {
+        _dateTask.value = null
     }
 
 }

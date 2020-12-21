@@ -1,27 +1,22 @@
 package com.airongomes.listadetarefas.newTask
 
-import android.app.DatePickerDialog
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.Toast
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airongomes.listadetarefas.R
-import com.airongomes.listadetarefas.database.Task
 import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.databinding.FragmentNewTaskBinding
-import com.airongomes.listadetarefas.overview.OverviewViewModel
-import kotlinx.android.synthetic.main.fragment_new_task.*
-import java.text.DateFormat
-import java.util.*
+import com.google.android.material.snackbar.Snackbar
 
 class NewTaskFragment : Fragment() {
 
@@ -57,6 +52,27 @@ class NewTaskFragment : Fragment() {
             }
         })
 
+        // Observe the titleEmpty LiveData
+        viewModel.emptyTitle.observe(viewLifecycleOwner, Observer {
+            if(it == true) {
+                Snackbar.make(
+                    binding.constraintLayout,
+                    "Erro: Não é possível criar uma tarefa sem título.",
+                    Snackbar.LENGTH_LONG).show()
+                viewModel.emptyTitleMessageShowed()
+            }
+        })
+
+        viewModel.resetDateTask()
+
         return binding.root
     }
+    /*
+    private fun View.hideKeyboard(){
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+    
+     */
+
 }

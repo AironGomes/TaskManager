@@ -28,6 +28,7 @@ class TaskAdapter: androidx.recyclerview.widget.ListAdapter<Task, TaskViewHolder
         val item = getItem(position)
         holder.bind(item)
     }
+
 }
 
 /**

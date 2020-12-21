@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.airongomes.listadetarefas.database.TaskListDao
+import kotlinx.coroutines.launch
 
 class OverviewViewModel(
         dataSource: TaskListDao,
@@ -23,5 +25,14 @@ class OverviewViewModel(
 
     fun createNewTaskStarted() {
         _createNewTask.value = false
+    }
+
+    /**
+     * Delete all data from database
+     */
+    fun deleteAllFromDatabase() {
+        viewModelScope.launch {
+            database.deleteAllTasks()
+        }
     }
 }
