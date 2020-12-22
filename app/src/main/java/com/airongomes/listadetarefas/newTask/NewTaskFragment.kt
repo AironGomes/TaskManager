@@ -2,13 +2,18 @@ package com.airongomes.listadetarefas.newTask
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.util.Log
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
@@ -18,10 +23,12 @@ import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.databinding.FragmentNewTaskBinding
 import com.google.android.material.snackbar.Snackbar
 
-class NewTaskFragment : Fragment() {
+class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
+
+    private lateinit var binding: FragmentNewTaskBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding : FragmentNewTaskBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_task, container,false)
 
         val application = requireNotNull(this.activity).application
@@ -63,16 +70,49 @@ class NewTaskFragment : Fragment() {
             }
         })
 
+        val spinner: Spinner = binding.spinner
+        spinner.onItemSelectedListener = this
+        spinner.prompt = "Selecione a prioridade da tarefa"
+        spinner.gravity = Gravity.CENTER
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.priority_list,
+            //android.R.layout.simple_spinner_item
+            //android.R.layout.simple_list_item_single_choice
+            R.layout.custom_layout
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            //adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice)
+            adapter.setDropDownViewResource(R.layout.custom_layout)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
         viewModel.resetDateTask()
 
         return binding.root
     }
-    /*
-    private fun View.hideKeyboard(){
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-    
+
+    /**
+     * Use this Actions when the Spinner is selected
      */
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // retrieve the selected item
+
+
+        val item = parent.getItemAtPosition(pos).toString()
+//        when(item){
+//            "Média" -> binding.selecColor.background = R.color.yellow.toDrawable()
+//            "Alta" -> binding.selecColor.background = R.color.red.toDrawable()
+//        }
+        Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        Toast.makeText(context, "Nothing Selected", Toast.LENGTH_SHORT).show()
+    }
 
 }

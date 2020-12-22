@@ -3,6 +3,7 @@ package com.airongomes.listadetarefas.overview
 import OverviewViewMolderFactory
 import android.os.Bundle
 import android.view.*
+import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -80,8 +81,15 @@ class OverviewFragment : Fragment() {
         viewModel.taskList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                binding.rootWithoutWork.visibility = View.GONE
             }
+            // Show a image if the List is empty
+            if(it.isEmpty()){
+                binding.rootWithoutWork.visibility = View.VISIBLE
+            }
+
         })
+
 
         // Enable the use of Menu
         setHasOptionsMenu(true)

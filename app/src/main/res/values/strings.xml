@@ -13,4 +13,11 @@
     <string name="contDesc_button_cancel">Botão: Cancelar</string>
     <string name="button_cancel">cancelar</string>
     <string name="contDesc_addNewTask">Botão: Adicionar nova tarefa</string>
+    <string name="lb_withoutWork">Nenhuma tarefa por enquanto…</string>
+    
+    <string-array name="priority_list">
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
 </resources>

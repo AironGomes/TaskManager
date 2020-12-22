@@ -64,40 +64,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
-        <RadioGroup
-            android:id="@+id/priorityLevel"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@id/priorityLow"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lb_priority">
-
-            <RadioButton
-                android:id="@+id/priorityLow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Baixa"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="69dp"
-                tools:layout_editor_absoluteY="222dp" />
-
-            <RadioButton
-                android:id="@+id/priorityMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Média"
-                android:textSize="18sp"
-                tools:layout_editor_absoluteX="69dp"
-                tools:layout_editor_absoluteY="270dp" />
-
-            <RadioButton
-                android:id="@+id/priorityHigh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Alta"
-                android:textSize="18sp" />
-        </RadioGroup>
+            android:layout_marginStart="16dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@+id/lb_priority"
+            app:layout_constraintStart_toEndOf="@+id/lb_priority"
+            app:layout_constraintTop_toTopOf="@+id/lb_priority"
+            tools:listitem="@android:layout/simple_list_item_1" />
 
         <TextView
             android:id="@+id/lb_forecast"
@@ -108,7 +84,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/priorityLevel" />
+            app:layout_constraintTop_toBottomOf="@+id/lb_priority" />
 
         <TextView
             android:id="@+id/lb_date"
@@ -116,12 +92,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textAlignment="center"
+            android:textColor="#8A8787"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:showDateString="@{viewModel.dateTask}"
             app:layout_constraintBaseline_toBaselineOf="@+id/lb_forecast"
             app:layout_constraintStart_toEndOf="@+id/lb_forecast"
-            tools:text="01 Jan 2021"/>
+            app:showDateString="@{viewModel.dateTask}"
+            tools:text="01 Jan 2021" />
 
         <Button
             android:id="@+id/button_setDate"
@@ -157,6 +134,7 @@
             app:backgroundTint="#C2185B"
             app:layout_constraintStart_toEndOf="@id/button_ok"
             app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
