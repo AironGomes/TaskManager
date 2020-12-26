@@ -1,22 +1,15 @@
 package com.airongomes.listadetarefas.newTask
 
-import android.app.Activity
-import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airongomes.listadetarefas.R
 import com.airongomes.listadetarefas.database.TaskListDatabase
@@ -27,6 +20,8 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentNewTaskBinding
 
+    private lateinit var viewModel: NewTaskViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_new_task, container,false)
@@ -34,8 +29,10 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val application = requireNotNull(this.activity).application
         val dataSource = TaskListDatabase.getInstance(application).taskDatabaseDao
         // Instantiate the ViewModel
-        val viewModelFactory = NewTaskViewModelFactory(dataSource, application)
-        val viewModel: NewTaskViewModel by activityViewModels{viewModelFactory}
+        val viewModelFactory = NewTaskViewModelFactory(dataSource)
+        //val viewModel: NewTaskViewModel by activityViewModels{viewModelFactory}
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(NewTaskViewModel::class.java)
+
         // Associate the dataBinding with the viewModel
         binding.viewModel = viewModel
         // Set LifeCyclerOwer that able the fragment to observe LiveData
@@ -78,41 +75,34 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.priority_list,
-            //android.R.layout.simple_spinner_item
-            //android.R.layout.simple_list_item_single_choice
-            R.layout.custom_layout
+            R.layout.custom_layout_text
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
-            //adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice)
-            adapter.setDropDownViewResource(R.layout.custom_layout)
+            adapter.setDropDownViewResource(R.layout.custom_layout_text)
             // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
 
-        viewModel.resetDateTask()
+        viewModel.resetTask()
 
         return binding.root
     }
+
 
     /**
      * Use this Actions when the Spinner is selected
      */
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        Log.i("Log", "onItemSelected called")
         // retrieve the selected item
-
-
-        val item = parent.getItemAtPosition(pos).toString()
-//        when(item){
-//            "Média" -> binding.selecColor.background = R.color.yellow.toDrawable()
-//            "Alta" -> binding.selecColor.background = R.color.red.toDrawable()
-//        }
-        Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
-
+        //val item = parent.getItemAtPosition(pos).toString()
+        viewModel.setPriority(pos)
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        Toast.makeText(context, "Nothing Selected", Toast.LENGTH_SHORT).show()
+        Log.i("Log", "onNothingSelected called")
     }
 
 }
+

@@ -7,12 +7,17 @@
         <variable
             name="task"
             type="com.airongomes.listadetarefas.database.Task" />
+        
+        <variable
+            name="clickListener"
+            type="com.airongomes.listadetarefas.adapter.TaskClickListener" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:layout_margin="4dp"
+            android:onClick="@{() -> clickListener.onClick(task)}">
 
             <TextView
                 android:id="@+id/item_title"
@@ -36,15 +41,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto"
+                android:lines="2"
+                android:maxLines="2"
                 android:text="@{task.description}"
                 android:textAlignment="textStart"
                 android:textSize="16sp"
-                android:maxLines="2"
-                android:lines="2"
-                android:ellipsize="end"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/item_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
                 tools:text="This is the description of the first item." />
@@ -53,6 +57,8 @@
                 android:id="@+id/item_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto"
                 android:textAlignment="center"
                 android:textSize="12sp"
@@ -60,6 +66,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:setDate="@{task}"
                 tools:text="25 Jan" />
+
+            <ImageView
+                android:id="@+id/iconPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:setPriorityImage="@{task.priority}"
+                tools:srcCompat="@drawable/priority_icon_high" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

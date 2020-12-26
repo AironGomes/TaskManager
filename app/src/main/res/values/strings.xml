@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Lista de Tarefas</string>
     <string name="lb_button_add_newTask">Adicionar nova tarefa</string>
-    <string name="lb_title_newTask">Nova Tarefa</string>
+    <string name="lb_title_newTask">Criar nova tarefa</string>
     <string name="hint_title">Título:</string>
     <string name="hint_description">Descrição:</string>
     <string name="lb_priority">Prioridade:</string>
@@ -14,10 +14,13 @@
     <string name="button_cancel">cancelar</string>
     <string name="contDesc_addNewTask">Botão: Adicionar nova tarefa</string>
     <string name="lb_withoutWork">Nenhuma tarefa por enquanto…</string>
-    
+
     <string-array name="priority_list">
         <item>Baixa</item>
         <item>Média</item>
         <item>Alta</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_delete">EXCLUIR</string>
 </resources>

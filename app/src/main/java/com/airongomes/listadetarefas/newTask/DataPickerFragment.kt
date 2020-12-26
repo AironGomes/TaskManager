@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.newTask.NewTaskFragmentDirections.actionNewTaskFragmentToOverviewFragment
@@ -17,6 +18,7 @@ import java.util.*
 
 class DataPickerFragment: DialogFragment(), DatePickerDialog.OnDateSetListener {
 
+
     /**
      * Send the date to NewTaskViewModel
      */
@@ -24,8 +26,9 @@ class DataPickerFragment: DialogFragment(), DatePickerDialog.OnDateSetListener {
         val application = requireNotNull(this.activity).application
         val dataSource = TaskListDatabase.getInstance(application).taskDatabaseDao
         // Instantiate the ViewModel
-        val viewModelFactory = NewTaskViewModelFactory(dataSource, application)
-        val viewModel: NewTaskViewModel by activityViewModels{viewModelFactory}
+        val viewModelFactory = NewTaskViewModelFactory(dataSource)
+        //val viewModel: NewTaskViewModel by activityViewModels{viewModelFactory}
+        val viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(NewTaskViewModel::class.java)
 
         // Create a calendar with the input parameters
         val calendar = Calendar.getInstance()

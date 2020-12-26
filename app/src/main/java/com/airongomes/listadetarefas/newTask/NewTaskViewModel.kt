@@ -2,6 +2,8 @@ package com.airongomes.listadetarefas.newTask
 
 import android.app.Application
 import android.view.View
+import androidx.core.view.get
+import androidx.core.view.isEmpty
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +16,15 @@ import java.text.DateFormat
 import java.util.*
 
 class NewTaskViewModel(
-    dataSource: TaskListDao,
-    application: Application) : ViewModel() {
+    dataSource: TaskListDao) : ViewModel() {
 
     // Instance of database
     val database = dataSource
+
+    // Priority value
+    private var _priorityValue = MutableLiveData<Int>()
+    val priorityValue: LiveData<Int>
+        get() = _priorityValue
 
     // LiveData to date information
     private var _dateTask = MutableLiveData<Calendar>()
@@ -45,16 +51,18 @@ class NewTaskViewModel(
      * @param: View: is the ViewGroup from the fragment_new_task
      */
     fun saveTask(view: View) {
-        if (view.edit_title.text.isEmpty()) {
+
+        if (view.edit_title.editText?.text?.isEmpty() == true) {
             _emptyTitle.value = true
         }
         else {
             val task = Task()
-            task.title = view.edit_title.text.toString()
-            task.description = view.edit_description.text.toString()
+            task.title = view.edit_title.editText?.text.toString()
+            task.description = view.edit_description.editText?.text.toString()
             task.year = dateTask.value?.get(Calendar.YEAR)
             task.month = dateTask.value?.get(Calendar.MONTH)
             task.day = dateTask.value?.get(Calendar.DAY_OF_MONTH)
+            task.priority = priorityValue.value!!
 
 
             viewModelScope.launch {
@@ -62,6 +70,7 @@ class NewTaskViewModel(
             }
             _closeFragment.value = true
         }
+
     }
 
     /**
@@ -109,8 +118,12 @@ class NewTaskViewModel(
     /**
      * This function is responsible to reset the LiveData dateTask
      */
-    fun resetDateTask() {
+    fun resetTask() {
         _dateTask.value = null
+        _priorityValue.value = 0
     }
 
+    fun setPriority(priority: Int){
+        _priorityValue.value = priority
+    }
 }

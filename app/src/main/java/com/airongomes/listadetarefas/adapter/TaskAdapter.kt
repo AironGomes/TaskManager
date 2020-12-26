@@ -1,10 +1,8 @@
 package com.airongomes.listadetarefas.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.airongomes.listadetarefas.database.Task
 import com.airongomes.listadetarefas.databinding.ListItemBinding
@@ -12,7 +10,7 @@ import com.airongomes.listadetarefas.databinding.ListItemBinding
 /**
  * This class create the adapter to be used with the recyclerview
  */
-class TaskAdapter: androidx.recyclerview.widget.ListAdapter<Task, TaskViewHolder>(TaskDiffCalback()) {
+class TaskAdapter(val clickListener: TaskClickListener): androidx.recyclerview.widget.ListAdapter<Task, TaskViewHolder>(TaskDiffCalback()) {
 
     /**
      * Inflate the ListItemView fragment and return the TaskViewHolder
@@ -26,18 +24,18 @@ class TaskAdapter: androidx.recyclerview.widget.ListAdapter<Task, TaskViewHolder
      */
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
-
 }
 
 /**
  * RecyclerViewHolder is responsible to manage the properties from onBindingVIewHolder and onCreateViewHolder
  */
 class TaskViewHolder private constructor(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: Task) {
+    fun bind(item: Task, clickListener: TaskClickListener) {
         binding.task = item
         binding.executePendingBindings()
+        binding.clickListener = clickListener
     }
 
     companion object {
@@ -66,4 +64,11 @@ class TaskDiffCalback: DiffUtil.ItemCallback<Task>() {
     override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
         return oldItem == newItem
     }
+}
+
+/**
+ * Click Listener for the RecyclerView Adapter
+ */
+class TaskClickListener(val clickListener: (taskId: Long) -> Unit){
+    fun onClick(task: Task) = clickListener(task.taskId)
 }

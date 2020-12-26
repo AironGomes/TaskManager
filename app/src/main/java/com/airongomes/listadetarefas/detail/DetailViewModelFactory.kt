@@ -1,23 +1,22 @@
-package com.airongomes.listadetarefas.newTask
+package com.airongomes.listadetarefas.detail
 
-import android.app.Application
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.airongomes.listadetarefas.database.TaskListDao
-import com.airongomes.listadetarefas.overview.OverviewViewModel
 
 /**
  * This is pretty much boiler plate code for a ViewModel Factory.
  *
  * Provides the TaskDatabaseDao and context to the ViewModel.
  */
-class NewTaskViewModelFactory(
-    private val dataSource: TaskListDao) : ViewModelProvider.Factory {
+class DetailViewModelFactory(
+    private val dataSource: TaskListDao,
+    private val taskKey: Long
+) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NewTaskViewModel::class.java)) {
-            return NewTaskViewModel(dataSource) as T
+        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            return DetailViewModel(dataSource, taskKey) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -9,11 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airongomes.listadetarefas.R
 import com.airongomes.listadetarefas.adapter.TaskAdapter
+import com.airongomes.listadetarefas.adapter.TaskClickListener
 import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.databinding.FragmentOverviewBinding
 
@@ -22,7 +26,6 @@ class OverviewFragment : Fragment() {
 
     // Create an viewModel variable (Enable the viewModel be accessible from outside of onCreateView)
     private lateinit var viewModel: OverviewViewModel
-
 
     /**
      * onCreateView is responsible to inflate the fragment and instantiate the all the features which
@@ -62,7 +65,9 @@ class OverviewFragment : Fragment() {
             }
         })
         // Create an Adapter class of RecyclerView
-        val adapter = TaskAdapter()
+        val adapter = TaskAdapter(TaskClickListener { taskId ->
+            viewModel.onTaskClicked(taskId)
+        })
         // Associate the RecyclerView with the Adapter
         binding.recyclerview.adapter = adapter
         // Create a LayoutManager of RecyclerView
@@ -90,13 +95,20 @@ class OverviewFragment : Fragment() {
 
         })
 
+        viewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { nightId ->
+            nightId?.let {
+                this.findNavController().navigate(
+                    OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(nightId)
+                )
+                viewModel.onTaskDetailNavigated()
+            }
+        })
 
         // Enable the use of Menu
         setHasOptionsMenu(true)
 
         return binding.root
     }
-
 
     /**
      * Inflate the OptionsMenu
@@ -112,6 +124,9 @@ class OverviewFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.deleteAll -> viewModel.deleteAllFromDatabase()
+            R.id.about -> { this.findNavController().navigate(
+                OverviewFragmentDirections.actionOverviewFragmentToAboutFragment())
+            }
         }
         return true
     }

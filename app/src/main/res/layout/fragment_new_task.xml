@@ -27,31 +27,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/roboto"
             android:hint="@string/hint_title"
-            android:textSize="20sp"
-            android:inputType="textCapSentences"
+            android:layout_marginTop="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lb_newTask" />
+            app:layout_constraintTop_toBottomOf="@id/lb_newTask">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/roboto"
             android:hint="@string/hint_description"
-            android:textSize="18sp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine|textCapSentences"
+            android:layout_marginTop="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_title" />
+            app:layout_constraintTop_toBottomOf="@id/edit_title">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/lb_priority"
@@ -60,7 +62,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/lb_priority"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
@@ -68,57 +70,49 @@
             android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toBottomOf="@+id/lb_priority"
-            app:layout_constraintStart_toEndOf="@+id/lb_priority"
-            app:layout_constraintTop_toTopOf="@+id/lb_priority"
+            app:layout_constraintBaseline_toBaselineOf="@+id/lb_priority"
+            app:layout_constraintStart_toEndOf="@+id/icon_priorityTask"
             tools:listitem="@android:layout/simple_list_item_1" />
 
-        <TextView
-            android:id="@+id/lb_forecast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/lb_forecastDate"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lb_priority" />
-
-        <TextView
-            android:id="@+id/lb_date"
+        <ImageView
+            android:id="@+id/icon_priorityTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textAlignment="center"
-            android:textColor="#8A8787"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/lb_forecast"
-            app:layout_constraintStart_toEndOf="@+id/lb_forecast"
-            app:showDateString="@{viewModel.dateTask}"
-            tools:text="01 Jan 2021" />
+            app:layout_constraintBottom_toBottomOf="@+id/lb_priority"
+            app:layout_constraintStart_toEndOf="@+id/lb_priority"
+            app:layout_constraintTop_toTopOf="@+id/lb_priority"
+            app:srcCompat="@drawable/priority_icon_high"
+            app:setPriorityImage="@{viewModel.priorityValue}"
+            tools:srcCompat="@drawable/priority_icon_high" />
+
 
         <Button
             android:id="@+id/button_setDate"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/contDenc_buttonDefineDate"
-            android:text="@string/button_defineDate"
             android:onClick="@{() -> viewModel.chooseDate()}"
+            android:textSize="16sp"
+            android:backgroundTint="@color/design_default_color_secondary"
+            app:buttonSetDate="@{viewModel.dateTask}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lb_forecast" />
+            app:layout_constraintTop_toBottomOf="@id/lb_priority"
+            tools:text="@string/button_defineDate" />
 
         <Button
             android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/contDesc_buttonOk"
-            android:text="@string/button_ok"
             android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
+            android:text="@string/button_ok"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
 
@@ -127,13 +121,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:contentDescription="@string/contDesc_button_cancel"
-            android:text="@string/button_cancel"
             android:onClick="@{() -> viewModel.cancelTask()}"
-            app:backgroundTint="#C2185B"
-            app:layout_constraintStart_toEndOf="@id/button_ok"
-            app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
+            android:text="@string/button_cancel"
+            android:textColor="@color/button2"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_ok"
+            app:layout_constraintStart_toEndOf="@+id/button_ok"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@ data class Task(
     var taskId: Long = 0L,
     var title: String = "",
     var description: String = "",
-    var priority: String = "",
+    var priority: Int = 0,
     var year: Int? = null,
     var month: Int? = null,
     var day: Int? = null)

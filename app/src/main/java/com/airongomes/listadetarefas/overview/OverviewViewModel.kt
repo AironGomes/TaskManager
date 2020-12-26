@@ -18,7 +18,11 @@ class OverviewViewModel(
 
     private var _createNewTask = MutableLiveData<Boolean>()
     val createNewTask: LiveData<Boolean>
-            get() = _createNewTask
+        get() = _createNewTask
+
+    private var _navigateToTaskDetail = MutableLiveData<Long>()
+    val navigateToTaskDetail: LiveData<Long>
+        get() = _navigateToTaskDetail
 
     fun createNewTask() {
         _createNewTask.value = true
@@ -35,5 +39,19 @@ class OverviewViewModel(
         viewModelScope.launch {
             database.deleteAllTasks()
         }
+    }
+
+    /**
+     * When clicked set the navigateToTaskDetail LiveData
+     */
+    fun onTaskClicked(taskId: Long) {
+        _navigateToTaskDetail.value = taskId
+    }
+
+    /**
+     * Navigate to TaskDetail and set the LiveData to null
+     */
+    fun onTaskDetailNavigated() {
+        _navigateToTaskDetail.value = null
     }
 }
