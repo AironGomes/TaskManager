@@ -2,19 +2,15 @@ package com.airongomes.listadetarefas.overview
 
 import OverviewViewMolderFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.airongomes.listadetarefas.R
 import com.airongomes.listadetarefas.adapter.TaskAdapter
 import com.airongomes.listadetarefas.adapter.TaskClickListener
@@ -55,15 +51,6 @@ class OverviewFragment : Fragment() {
         // Set this fragment to LifecyclerOwner to enable binding observe LiveData
         binding.setLifecycleOwner(this)
 
-        // Navigate to NewTask Fragment
-        viewModel.createNewTask.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                this.findNavController().navigate(
-                    OverviewFragmentDirections.actionOverviewFragmentToNewTaskFragment()
-                )
-                viewModel.createNewTaskStarted()
-            }
-        })
         // Create an Adapter class of RecyclerView
         val adapter = TaskAdapter(TaskClickListener { taskId ->
             viewModel.onTaskClicked(taskId)
@@ -82,19 +69,42 @@ class OverviewFragment : Fragment() {
         // Associate the RecyclerView with the ItemDecoration
         binding.recyclerview.addItemDecoration(mDividerItemDecoration)
 
-        // Update the RecyclerView List
-        viewModel.taskList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-                binding.rootWithoutWork.visibility = View.GONE
+        // Check Change Listener from ChipGroup
+        binding.chipGroup.setOnCheckedChangeListener{group, checkedId ->
+            when(checkedId) {
+                binding.chipLowPriority.id -> viewModel.updateFilterPriority("low")
+                binding.chipMediumPriority.id -> viewModel.updateFilterPriority("medium")
+                binding.chipHighPriority.id -> viewModel.updateFilterPriority("high")
+                else -> viewModel.updateFilterPriority("all")
             }
-            // Show a image if the List is empty
-            if(it.isEmpty()){
-                binding.rootWithoutWork.visibility = View.VISIBLE
-            }
+        }
 
+        // Navigate to NewTask Fragment
+        viewModel.createNewTask.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                this.findNavController().navigate(
+                    OverviewFragmentDirections.actionOverviewFragmentToNewTaskFragment()
+                )
+                viewModel.createNewTaskStarted()
+            }
         })
 
+        // Update the RecyclerView List
+        viewModel.taskList.observe(viewLifecycleOwner, Observer {
+            Log.i("TEST", "Submit List called")
+            it?.let {
+                adapter.submitList(it)
+                binding.textWithoutWork.visibility = View.GONE
+                binding.imageWithoutWork.visibility = View.GONE
+            }
+            // Show a image if the List is empty
+            if(it.isNullOrEmpty()){
+                binding.textWithoutWork.visibility = View.VISIBLE
+                binding.imageWithoutWork.visibility = View.VISIBLE
+            }
+        })
+
+        // Navigate to DetailFragment
         viewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { nightId ->
             nightId?.let {
                 this.findNavController().navigate(
@@ -106,7 +116,6 @@ class OverviewFragment : Fragment() {
 
         // Enable the use of Menu
         setHasOptionsMenu(true)
-
         return binding.root
     }
 
@@ -123,13 +132,16 @@ class OverviewFragment : Fragment() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // Clear the database
             R.id.deleteAll -> viewModel.deleteAllFromDatabase()
+            // Navigate to AboutFragment
             R.id.about -> { this.findNavController().navigate(
                 OverviewFragmentDirections.actionOverviewFragmentToAboutFragment())
             }
         }
         return true
     }
+
 }
 
 

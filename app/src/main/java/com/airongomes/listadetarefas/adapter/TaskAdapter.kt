@@ -1,9 +1,11 @@
 package com.airongomes.listadetarefas.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.airongomes.listadetarefas.R
 import com.airongomes.listadetarefas.database.Task
 import com.airongomes.listadetarefas.databinding.ListItemBinding
 
@@ -33,9 +35,10 @@ class TaskAdapter(val clickListener: TaskClickListener): androidx.recyclerview.w
  */
 class TaskViewHolder private constructor(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Task, clickListener: TaskClickListener) {
+        //binding.root.setBackgroundColor(Color.parseColor("#6DC182"))
         binding.task = item
-        binding.executePendingBindings()
         binding.clickListener = clickListener
+        binding.executePendingBindings()
     }
 
     companion object {

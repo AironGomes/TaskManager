@@ -11,13 +11,14 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         tools:context=".detail.DetailFragment">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/edit_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:setPriorityImage="@{viewModel.task.priority}"
@@ -29,9 +30,20 @@
             android:id="@+id/editable_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.editTask()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/editable_icon" />
+
+        <ImageView
+            android:id="@+id/save_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.updateTask(editConstraintLayout)}"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/save_icon" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_title"
@@ -40,14 +52,15 @@
             android:layout_marginTop="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editable_icon">
+            app:layout_constraintTop_toBottomOf="@id/edit_priority">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="text"
-                android:textSize="24sp"
+                android:singleLine="true"
+                android:hint="Título"
                 app:titleDetail="@{viewModel.task}"
                 tools:text="Título" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,33 +77,29 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="3"
+                android:gravity="top"
+                android:maxLines="3"
                 android:enabled="false"
-                android:inputType="text"
-                android:textSize="24sp"
-                android:text="Descrição"
+                android:hint="Descrição"
                 app:descriptionDetail="@{viewModel.task}"
                 tools:text="Descrição" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_textDate"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/button_setDate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/contDenc_buttonDefineDate"
+            android:textSize="16sp"
+            android:enabled="false"
+            app:buttonSetDate="@{viewModel.dateTask}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_description"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:inputType="date"
-                android:textSize="24sp"
-                app:dateDetail="@{viewModel.task}"
-                tools:text="01/01/2021" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@id/edit_description"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            tools:text="@string/button_defineDate" />
 
         <Button
             android:id="@+id/button_cancel"
@@ -102,7 +111,8 @@
             android:textSize="16sp"
             android:onClick="@{() -> viewModel.closeDetailFragment()}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
 
         <Button
             android:id="@+id/button_delete"
@@ -110,13 +120,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:contentDescription="@string/contDesc_button_cancel"
-            android:text="@string/button_delete"
-            android:textColor="@color/button2"
-            android:textSize="16sp"
             android:onClick="@{() -> viewModel.deleteTask()}"
-            app:layout_constraintStart_toEndOf="@id/button_cancel"
+            android:text="@string/button_delete"
+            android:textSize="16sp"
+            app:backgroundTint="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
 

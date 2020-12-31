@@ -14,18 +14,80 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root_withoutWork"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            tools:visibility="visible">
+            <HorizontalScrollView
+                android:id="@+id/horizontal_scroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    app:singleLine="true"
+                    android:tag="111"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Todos"
+                        android:tag="Todos"
+                        android:checked="true"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_low_priority"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Baixa"
+                        android:tag="Baixa"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_medium_priority"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Média"
+                        android:tag="Média"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_high_priority"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alta"
+                        android:tag="Alta"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
+                app:layout_constraintStart_toStartOf="parent">
+            </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/text_withoutWork"
@@ -34,27 +96,29 @@
                 android:layout_marginBottom="36dp"
                 android:text="@string/lb_withoutWork"
                 android:textSize="24sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/image_withoutWork"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/image_withoutWork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/no_task_icon3" />
+                app:srcCompat="@drawable/no_task_icon3"
+                tools:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_newTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

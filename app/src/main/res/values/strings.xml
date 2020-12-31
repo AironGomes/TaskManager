@@ -6,9 +6,10 @@
     <string name="hint_description">Descrição:</string>
     <string name="lb_priority">Prioridade:</string>
     <string name="lb_forecastDate">Data prevista:</string>
-    <string name="button_defineDate">Definir data</string>
+    <string name="button_defineDate">Data</string>
+    <string name="button_defineTime">Hora</string>
     <string name="button_ok">OK</string>
-    <string name="contDesc_buttonOk">Botão: Confirmar Tarefa</string>
+    <string name="contDesc_buttonOk">Botão: OK</string>
     <string name="contDenc_buttonDefineDate">Botão: Definir data</string>
     <string name="contDesc_button_cancel">Botão: Cancelar</string>
     <string name="button_cancel">cancelar</string>
@@ -20,6 +21,15 @@
         <item>Média</item>
         <item>Alta</item>
     </string-array>
+
+    <string-array name="filter_list">
+        <item>Todos</item>
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button_delete">EXCLUIR</string>

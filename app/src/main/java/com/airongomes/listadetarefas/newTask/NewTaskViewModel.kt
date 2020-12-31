@@ -31,6 +31,11 @@ class NewTaskViewModel(
     val dateTask: LiveData<Calendar>
         get() = _dateTask
 
+    // LiveData to time information
+    private var _timeTask = MutableLiveData<Calendar>()
+    val timeTask: LiveData<Calendar>
+        get() = _timeTask
+
     // LiveData used when the fragment is closed
     private var _closeFragment = MutableLiveData<Boolean>()
     val closeFragment: LiveData<Boolean>
@@ -87,25 +92,32 @@ class NewTaskViewModel(
         _closeFragment.value = false
     }
 
+//    /**
+//     * This function is activated by button_setDate from fragment_new_task
+//     */
+//    fun chooseDate() {
+//        _chooseDate.value = true
+//    }
+
+//    /**
+//     * This function is responsible to reset the _chooseDate.value
+//     */
+//    fun chosenDate() {
+//        _chooseDate.value = false
+//    }
+
     /**
-     * This function is activated by button_setDate from fragment_new_task
+     * Set the date Picker
      */
-    fun chooseDate() {
-        _chooseDate.value = true
+    fun getDate(cal: Calendar) {
+        _dateTask.value = cal
     }
 
     /**
-     * This function is responsible to reset the _chooseDate.value
+     * Set the time Picker
      */
-    fun chosenDate() {
-        _chooseDate.value = false
-    }
-
-    /**
-     * Set the date from DataPickerFragment into the dateTask LiveData
-     */
-    fun getDate(date: Calendar) {
-        _dateTask.value = date
+    fun getTime(cal: Calendar) {
+        _timeTask.value = cal
     }
 
     /**
@@ -115,13 +127,13 @@ class NewTaskViewModel(
         _emptyTitle.value = false
     }
 
-    /**
-     * This function is responsible to reset the LiveData dateTask
-     */
-    fun resetTask() {
-        _dateTask.value = null
-        _priorityValue.value = 0
-    }
+//    /**
+//     * This function is responsible to reset the LiveData dateTask
+//     */
+//    fun resetTask() {
+//        _dateTask.value = null
+//        _priorityValue.value = 0
+//    }
 
     fun setPriority(priority: Int){
         _priorityValue.value = priority

@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.airongomes.listadetarefas.R
 
+/**
+ * This fragment shows an explanation about the app
+ */
 class AboutFragment : Fragment() {
 
     override fun onCreateView(

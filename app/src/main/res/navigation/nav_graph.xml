@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/OverviewFragment"
         android:name="com.airongomes.listadetarefas.overview.OverviewFragment"
-        android:label="Lista de Tarefas"
+        android:label="Gerenciador de Tarefas"
         tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/action_overviewFragment_to_newTaskFragment"

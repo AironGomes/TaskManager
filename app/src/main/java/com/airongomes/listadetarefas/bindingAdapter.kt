@@ -1,5 +1,6 @@
 package com.airongomes.listadetarefas
 
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Build
 import android.view.View
@@ -8,8 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
+import com.airongomes.listadetarefas.adapter.TaskAdapter
 import com.airongomes.listadetarefas.database.Task
 import kotlinx.android.synthetic.main.fragment_about.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter("itemTitle")
@@ -80,31 +85,26 @@ fun TextView.showDateString(date: Calendar?) {
  */
 
 @BindingAdapter("buttonSetDate")
-fun Button.buttonSetDate(date: Calendar?) {
-    if(date != null) {
-        val day = date.get(Calendar.DAY_OF_MONTH)
-        val month = date.get(Calendar.MONTH)
-        val year = date.get(Calendar.YEAR)
-        var monthString = ""
-        when (month) {
-            0 -> monthString = "Jan"
-            1 -> monthString = "Fev"
-            2 -> monthString = "Mar"
-            3 -> monthString = "Abr"
-            4 -> monthString = "Mai"
-            5 -> monthString = "Jun"
-            6 -> monthString = "Jul"
-            7 -> monthString = "Ago"
-            8 -> monthString = "Set"
-            9 -> monthString = "Out"
-            10 -> monthString = "Nov"
-            11 -> monthString = "Dez"
-        }
-        val dateString = "$day $monthString $year"
-        text = dateString
+fun Button.buttonSetDate(cal: Calendar?) {
+    cal?.let {
+        val myFormat = "dd/MM/yyyy"
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+        text = sdf.format(cal.time)
     }
-    else {
+    if(cal == null) {
         text = resources.getText(R.string.button_defineDate)
+    }
+}
+
+@BindingAdapter("buttonSetTime")
+fun Button.buttonSetTime(cal: Calendar?) {
+    cal?.let {
+        val myFormat = "HH:mm"
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+        text = sdf.format(cal.time)
+    }
+    if(cal == null) {
+        text = resources.getText(R.string.button_defineTime)
     }
 }
 
@@ -119,13 +119,23 @@ fun TextView.setPriority(task: Task?) {
  */
 @BindingAdapter("setPriorityImage")
 fun ImageView.setPriorityImage(priorityValue: Int?) {
-    priorityValue?.let {
+    if(priorityValue == null) {
+        setImageResource(R.drawable.priority_icon_low)
+    }
+    else{
         setImageResource(when(priorityValue){
             0 -> R.drawable.priority_icon_low
             1 -> R.drawable.priority_icon_medium
             else -> R.drawable.priority_icon_high
         })
     }
+//    priorityValue?.let {
+//        setImageResource(when(priorityValue){
+//            0 -> R.drawable.priority_icon_low
+//            1 -> R.drawable.priority_icon_medium
+//            else -> R.drawable.priority_icon_high
+//        })
+//    }
 }
 
 /*
@@ -156,7 +166,7 @@ fun ImageView.setIcon(task: Task?) {
 
  */
 
-// Task Detail
+// Task Detail -----------------------------------------------------------------------
 
 /*
 @BindingAdapter("imageDetail")
@@ -211,8 +221,23 @@ fun TextView.dateDetail(task: Task?) {
             val dateString = "$day $monthString $year"
             text = dateString
         }
-        else {
-            text = "Date"
-        }
+    }
+}
+
+@BindingAdapter("dateDetail")
+fun Button.dateDetail(task: Task?) {
+    task?.let {
+        text = if(task.year != null && task.month != null && task.day != null) {
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.YEAR, task.year!!)
+            cal.set(Calendar.MONTH, task.month!!)
+            cal.set(Calendar.DAY_OF_MONTH, task.day!!)
+
+            val myFormat = "dd/MM/yyyy"
+            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+            sdf.format(cal.time)
+
+        } else {resources.getText(R.string.button_defineDate)}
+
     }
 }

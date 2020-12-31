@@ -38,21 +38,25 @@
             app:layout_constraintTop_toBottomOf="@id/lb_newTask">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_description"
             android:layout_marginTop="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_title">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_description"
+                android:lines="3"
+                android:maxLines="3"
+                android:gravity="top"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -84,37 +88,47 @@
             app:layout_constraintBottom_toBottomOf="@+id/lb_priority"
             app:layout_constraintStart_toEndOf="@+id/lb_priority"
             app:layout_constraintTop_toTopOf="@+id/lb_priority"
-            app:srcCompat="@drawable/priority_icon_high"
             app:setPriorityImage="@{viewModel.priorityValue}"
-            tools:srcCompat="@drawable/priority_icon_high" />
+            tools:srcCompat="@drawable/priority_icon_medium" />
 
 
         <Button
             android:id="@+id/button_setDate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/contDenc_buttonDefineDate"
-            android:onClick="@{() -> viewModel.chooseDate()}"
             android:textSize="16sp"
-            android:backgroundTint="@color/design_default_color_secondary"
             app:buttonSetDate="@{viewModel.dateTask}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lb_priority"
-            tools:text="@string/button_defineDate" />
+            tools:text="@string/button_defineDate"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        <Button
+            android:id="@+id/button_setTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/secondaryColor"
+            app:buttonSetTime="@{viewModel.timeTask}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
+            app:layout_constraintStart_toEndOf="@+id/button_setDate"
+            tools:text="HORA"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
         <Button
             android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_margin="8dp"
             android:contentDescription="@string/contDesc_buttonOk"
             android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
             android:text="@string/button_ok"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_setDate" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_cancel"
@@ -124,11 +138,12 @@
             android:contentDescription="@string/contDesc_button_cancel"
             android:onClick="@{() -> viewModel.cancelTask()}"
             android:text="@string/button_cancel"
-            android:textColor="@color/button2"
+            android:textColor="@color/secondaryColor"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_ok"
             app:layout_constraintStart_toEndOf="@+id/button_ok"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

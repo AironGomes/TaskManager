@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airongomes.listadetarefas.database.TaskListDatabase
@@ -23,21 +24,22 @@ class DataPickerFragment: DialogFragment(), DatePickerDialog.OnDateSetListener {
      * Send the date to NewTaskViewModel
      */
     override fun onDateSet(dataPicker: DatePicker?, year: Int, month: Int, day: Int) {
-        val application = requireNotNull(this.activity).application
-        val dataSource = TaskListDatabase.getInstance(application).taskDatabaseDao
-        // Instantiate the ViewModel
-        val viewModelFactory = NewTaskViewModelFactory(dataSource)
-        //val viewModel: NewTaskViewModel by activityViewModels{viewModelFactory}
-        val viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(NewTaskViewModel::class.java)
+//        val application = requireNotNull(this.activity).application
+//        val dataSource = TaskListDatabase.getInstance(application).taskDatabaseDao
+//        // Instantiate the ViewModel
+//        val viewModelFactory = NewTaskViewModelFactory(dataSource)
+//        //val viewModel: NewTaskViewModel by activityViewModels{viewModelFactory}
+//        val viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(NewTaskViewModel::class.java)
 
         // Create a calendar with the input parameters
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
-        // Call the getDate function from viewModel
-        viewModel.getDate(calendar)
+//        // Call the getDate function from viewModel
+//        viewModel.getDate(calendar)
     }
+
 
     /**
      * Receive the Calendar's Information
