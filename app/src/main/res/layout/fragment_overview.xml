@@ -18,20 +18,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/lb_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Prioridade"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <HorizontalScrollView
                 android:id="@+id/horizontal_scroll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/lb_filter">
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/chip_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
+                    android:layout_marginBottom="8dp"
                     app:singleLine="true"
                     android:tag="111"
                     app:selectionRequired="true"
@@ -48,11 +60,11 @@
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_low_priority"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Baixa"
                         android:tag="Baixa"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
+                        android:text="Baixa" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_medium_priority"
@@ -74,19 +86,21 @@
             </HorizontalScrollView>
 
             <View
-                android:id="@+id/test"
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray"
+                android:background="?android:attr/listDivider"
                 app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
                 app:layout_constraintStart_toStartOf="parent"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll">
             </androidx.recyclerview.widget.RecyclerView>
 
             <TextView

@@ -19,7 +19,7 @@ class NewTaskViewModel(
     dataSource: TaskListDao) : ViewModel() {
 
     // Instance of database
-    val database = dataSource
+    private val database = dataSource
 
     // Priority value
     private var _priorityValue = MutableLiveData<Int>()
@@ -51,6 +51,9 @@ class NewTaskViewModel(
     val emptyTitle: LiveData<Boolean>
         get() = _emptyTitle
 
+    // Set allday instead of time
+    private var allDay: Boolean = true
+
     /**
      * This function is responsible to insert the task to the database.
      * @param: View: is the ViewGroup from the fragment_new_task
@@ -64,18 +67,28 @@ class NewTaskViewModel(
             val task = Task()
             task.title = view.edit_title.editText?.text.toString()
             task.description = view.edit_description.editText?.text.toString()
-            task.year = dateTask.value?.get(Calendar.YEAR)
-            task.month = dateTask.value?.get(Calendar.MONTH)
-            task.day = dateTask.value?.get(Calendar.DAY_OF_MONTH)
             task.priority = priorityValue.value!!
 
+            timeTask.value?.let {
+                val calendar = Calendar.getInstance()
+                dateTask.value?.get(Calendar.YEAR)?.let { calendar.set(Calendar.YEAR, it) }
+                dateTask.value?.get(Calendar.MONTH)?.let { calendar.set(Calendar.MONTH, it) }
+                dateTask.value?.get(Calendar.DAY_OF_MONTH)?.let { calendar.set(Calendar.DAY_OF_MONTH, it) }
+                timeTask.value?.get(Calendar.HOUR_OF_DAY)?.let { calendar.set(Calendar.HOUR_OF_DAY, it)}
+                timeTask.value?.get(Calendar.MINUTE)?.let { calendar.set(Calendar.MINUTE, it)}
+                calendar.set(Calendar.SECOND, 0)
+                _dateTask.value = calendar
+            }
+
+            task.date = dateTask.value?.timeInMillis
+            //task.time = timeTask.value?.timeInMillis
+            task.allDay = allDay
 
             viewModelScope.launch {
                 database.insert(task)
             }
             _closeFragment.value = true
         }
-
     }
 
     /**
@@ -92,24 +105,13 @@ class NewTaskViewModel(
         _closeFragment.value = false
     }
 
-//    /**
-//     * This function is activated by button_setDate from fragment_new_task
-//     */
-//    fun chooseDate() {
-//        _chooseDate.value = true
-//    }
-
-//    /**
-//     * This function is responsible to reset the _chooseDate.value
-//     */
-//    fun chosenDate() {
-//        _chooseDate.value = false
-//    }
-
     /**
      * Set the date Picker
      */
     fun getDate(cal: Calendar) {
+//        date.set(Calendar.YEAR, cal.get(Calendar.YEAR))
+//        date.set(Calendar.MONTH, cal.get(Calendar.MONTH))
+//        date.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH))
         _dateTask.value = cal
     }
 
@@ -117,7 +119,12 @@ class NewTaskViewModel(
      * Set the time Picker
      */
     fun getTime(cal: Calendar) {
+//        time.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY))
+//        time.set(Calendar.MINUTE, cal.get(Calendar.MINUTE))
+
         _timeTask.value = cal
+        allDay = false
+        //_dateTask.value = calendar
     }
 
     /**
@@ -127,15 +134,17 @@ class NewTaskViewModel(
         _emptyTitle.value = false
     }
 
-//    /**
-//     * This function is responsible to reset the LiveData dateTask
-//     */
-//    fun resetTask() {
-//        _dateTask.value = null
-//        _priorityValue.value = 0
-//    }
-
     fun setPriority(priority: Int){
         _priorityValue.value = priority
     }
+
+    /**
+     * Checkbox allDay true
+     */
+    fun setAllDayToTrue(){
+        //_allDay.value = true
+        allDay = true
+        _timeTask.value = null
+    }
+
 }

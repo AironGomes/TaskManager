@@ -1,20 +1,21 @@
 package com.airongomes.listadetarefas.detail
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airongomes.listadetarefas.R
+import com.airongomes.listadetarefas.SetCalendar
 import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.databinding.FragmentDetailBinding
-import com.airongomes.listadetarefas.newTask.NewTaskFragmentDirections
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -55,8 +56,13 @@ class DetailFragment : Fragment() {
                 binding.editTitle.isEnabled = true
                 binding.editDescription.isEnabled = true
                 binding.buttonSetDate.isEnabled = true
+                binding.buttonSetTime.isEnabled = true
+                binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondaryColor))
                 binding.editableIcon.visibility = View.GONE
                 binding.saveIcon.visibility = View.VISIBLE
+                binding.buttonCancel.text = getString(R.string.button_cancel)
+                binding.buttonCancel.contentDescription = getString(R.string.contDesc_button_cancel)
+                binding.checkboxTodoODia.isEnabled = true
                 viewModel.editTaskConfirmed()
             }
         })
@@ -66,8 +72,13 @@ class DetailFragment : Fragment() {
                 binding.editTitle.isEnabled = false
                 binding.editDescription.isEnabled = false
                 binding.buttonSetDate.isEnabled = false
+                binding.buttonSetTime.isEnabled = false
+                binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.material_on_background_disabled))
                 binding.editableIcon.visibility = View.VISIBLE
                 binding.saveIcon.visibility = View.GONE
+                binding.buttonCancel.text = getString(R.string.button_ok)
+                binding.buttonCancel.contentDescription = getString(R.string.contDesc_buttonOk)
+                binding.checkboxTodoODia.isEnabled = false
                 viewModel.enableEditOptions()
             }
         })
@@ -86,39 +97,67 @@ class DetailFragment : Fragment() {
         // Set LifeCyclerOwer that able the fragment to observe LiveData
         binding.setLifecycleOwner(this)
 
+
+        // Initiate calendar when the task LiveData is initiated
+        viewModel.task.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                viewModel.startCalendar(it)
+            }
+        })
+
         // Call showDatePicker function
         binding.buttonSetDate.setOnClickListener{
             showDatePicker()
         }
 
-        // Initiate dateTask Calendar When the task LiveData is initiated
-        viewModel.task.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                viewModel.startDateCalendar(it)
+        // Call showTimePicker function
+        binding.buttonSetTime.setOnClickListener{
+            showTimePicker()
+        }
+
+        // Listener for checkbox state
+        binding.checkboxTodoODia.setOnCheckedChangeListener{_, isChecked ->
+            if(isChecked) {
+                binding.buttonSetTime.isEnabled = false
+                binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.material_on_background_disabled))
+                viewModel.setAllDayToTrue()
             }
-        })
+            else {
+                binding.buttonSetTime.isEnabled = true
+                binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondaryColor))
+            }
+        }
         return binding.root
     }
 
     /**
-     * Show the DatePicker when the Date button is clicked
+     * DatePicker Dialog
      */
-    fun showDatePicker() {
+    private fun showDatePicker() {
         val cal = Calendar.getInstance()
-
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            cal.set(Calendar.HOUR_OF_DAY, 23)
+            cal.set(Calendar.MINUTE, 59)
+            cal.set(Calendar.SECOND, 59)
             viewModel.getDate(cal)
         }
-
-        val dialog = DatePickerDialog(requireContext(), dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH))
-
-        dialog.show()
+        SetCalendar().datePickerDialog(requireContext(), cal, dateSetListener)
     }
 
+    /**
+     * TimePicker Dialog
+     */
+    fun showTimePicker() {
+
+        val cal = Calendar.getInstance()
+        val timeSetListener = TimePickerDialog.OnTimeSetListener {view, hour, minute ->
+            cal.set(Calendar.HOUR_OF_DAY, hour)
+            cal.set(Calendar.MINUTE, minute)
+            viewModel.getTime(cal)
+        }
+        SetCalendar().timePickerDialog(requireContext(), cal, timeSetListener)
+    }
 }

@@ -91,7 +91,6 @@ class OverviewFragment : Fragment() {
 
         // Update the RecyclerView List
         viewModel.taskList.observe(viewLifecycleOwner, Observer {
-            Log.i("TEST", "Submit List called")
             it?.let {
                 adapter.submitList(it)
                 binding.textWithoutWork.visibility = View.GONE

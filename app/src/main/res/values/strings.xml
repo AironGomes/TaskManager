@@ -6,8 +6,8 @@
     <string name="hint_description">Descrição:</string>
     <string name="lb_priority">Prioridade:</string>
     <string name="lb_forecastDate">Data prevista:</string>
-    <string name="button_defineDate">Data</string>
-    <string name="button_defineTime">Hora</string>
+    <string name="button_defineDate">DEFINIR DATA</string>
+    <string name="button_defineTime">DEFINIR HORA</string>
     <string name="button_ok">OK</string>
     <string name="contDesc_buttonOk">Botão: OK</string>
     <string name="contDenc_buttonDefineDate">Botão: Definir data</string>

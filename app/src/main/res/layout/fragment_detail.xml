@@ -88,18 +88,42 @@
 
         <Button
             android:id="@+id/button_setDate"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/contDenc_buttonDefineDate"
-            android:textSize="16sp"
             android:enabled="false"
+            android:textSize="16sp"
             app:buttonSetDate="@{viewModel.dateTask}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_description"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            tools:text="@string/button_defineDate" />
+            tools:text="DEFINIR DATA" />
+
+        <Button
+            android:id="@+id/button_setTime"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:enabled="false"
+            app:buttonSetTime="@{viewModel.timeTask}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
+            app:layout_constraintStart_toEndOf="@+id/button_setDate"
+            tools:text="DEFINIR HORA" />
+
+        <CheckBox
+            android:id="@+id/checkbox_todoODia"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="Todo o dia"
+            android:checked="@{viewModel.allDay}"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="@+id/button_setTime"
+            app:layout_constraintStart_toEndOf="@+id/button_setTime"
+            app:layout_constraintTop_toTopOf="@+id/button_setTime" />
 
         <Button
             android:id="@+id/button_cancel"

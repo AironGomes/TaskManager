@@ -1,21 +1,19 @@
 package com.airongomes.listadetarefas.newTask
 
-import android.app.Application
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
-import android.content.DialogInterface
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.airongomes.listadetarefas.R
+import com.airongomes.listadetarefas.SetCalendar
 import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.databinding.FragmentNewTaskBinding
 import com.google.android.material.snackbar.Snackbar
@@ -63,17 +61,6 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
 
-//        // Observe the chooseDate LiveData
-//        viewModel.chooseDate.observe(viewLifecycleOwner, Observer {
-//            if (it == true) {
-//                //val dialogFragment: DialogFragment = DataPickerFragment()
-//                val dialogFragment = DataPickerFragment()
-//                dialogFragment.show(childFragmentManager, "datapicker")
-//                viewModel.chosenDate()
-//
-//            }
-//        })
-
         // Observe the titleEmpty LiveData
         viewModel.emptyTitle.observe(viewLifecycleOwner, Observer {
             if (it == true) {
@@ -102,19 +89,31 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner.adapter = adapter
         }
 
-        //viewModel.resetTask()
-
+        // Call showDatePicker function
         binding.buttonSetDate.setOnClickListener{
             showDatePicker()
         }
 
+        // Call showTimePicker function
         binding.buttonSetTime.setOnClickListener{
             showTimePicker()
         }
 
+        // Listener for checkbox state
+        binding.checkboxTodoODia.setOnCheckedChangeListener{_, isChecked ->
+            if(isChecked) {
+                binding.buttonSetTime.isEnabled = false
+                binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.material_on_background_disabled))
+                viewModel.setAllDayToTrue()
+            }
+            else {
+                binding.buttonSetTime.isEnabled = true
+                binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondaryColor))
+            }
+        }
+
         return binding.root
     }
-
 
     /**
      * Use this Actions when the Spinner is selected
@@ -131,50 +130,36 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         Log.i("Log", "onNothingSelected called")
     }
 
-
-    fun showDatePicker() {
-
-        //binding.editTest.setText(SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()))
-        //binding.editTest.editText?.setText(SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()))
-
+    private fun showDatePicker() {
         val cal = Calendar.getInstance()
-
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-//            val myFormat = "dd/MM/yyyy"
-//            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-//            binding.buttonSetDate.text = sdf.format(cal.time)
+            cal.set(Calendar.HOUR_OF_DAY, 23)
+            cal.set(Calendar.MINUTE, 59)
+            cal.set(Calendar.SECOND, 59)
             viewModel.getDate(cal)
+            binding.checkboxTodoODia.isEnabled = true
         }
+        SetCalendar().datePickerDialog(requireContext(), cal, dateSetListener)
 
-        val dialog = DatePickerDialog(requireContext(), dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH))
-        //dialog.datePicker.maxDate = Calendar.getInstance().timeInMillis
-        dialog.show()
-        //viewModel.getDate(cal)
+//        val dialog = DatePickerDialog(requireContext(), dateSetListener,
+//            cal.get(Calendar.YEAR),
+//            cal.get(Calendar.MONTH),
+//            cal.get(Calendar.DAY_OF_MONTH))
+//        dialog.show()
     }
 
     fun showTimePicker() {
 
         val cal = Calendar.getInstance()
-
-        val timeSetListener = TimePickerDialog.OnTimeSetListener {view, hour, minute ->
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
-
             viewModel.getTime(cal)
         }
-
-        val dialog = TimePickerDialog(requireContext(), timeSetListener,
-            cal.get(Calendar.HOUR_OF_DAY),
-            cal.get(Calendar.MINUTE), true)
-        dialog.show()
+        SetCalendar().timePickerDialog(requireContext(), cal, timeSetListener)
     }
-
 }
 

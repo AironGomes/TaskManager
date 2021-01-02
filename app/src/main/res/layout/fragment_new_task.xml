@@ -102,7 +102,7 @@
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lb_priority"
-            tools:text="@string/button_defineDate"
+            tools:text="DEFINIR DATA"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
         <Button
@@ -111,12 +111,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="16sp"
-            android:textColor="@color/secondaryColor"
+            android:enabled="false"
             app:buttonSetTime="@{viewModel.timeTask}"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
             app:layout_constraintStart_toEndOf="@+id/button_setDate"
-            tools:text="HORA"
+            tools:text="DEFINIR HORA"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_todoODia"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:checked="true"
+            android:text="Dia todo"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="@+id/button_setTime"
+            app:layout_constraintStart_toEndOf="@+id/button_setTime"
+            app:layout_constraintTop_toTopOf="@+id/button_setTime" />
 
         <Button
             android:id="@+id/button_ok"
@@ -143,8 +155,6 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/button_ok"
             app:layout_constraintStart_toEndOf="@+id/button_ok"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

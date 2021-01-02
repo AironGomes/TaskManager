@@ -21,16 +21,16 @@ interface TaskListDao {
     @Query("DELETE from taskList_table")
     suspend fun deleteAllTasks()
 
-    @Query("SELECT * from taskList_table ORDER BY priority DESC, year is null, year ASC, month is null, month ASC, day is null, day ASC")
+    @Query("SELECT * from taskList_table ORDER BY priority DESC, date is null, date ASC, allDay ASC")
     fun getAllTasks(): LiveData<List<Task>>
 
-    @Query("SELECT * from taskList_table Where priority = 0 ORDER BY priority DESC, year is null, year ASC, month is null, month ASC, day is null, day ASC")
+    @Query("SELECT * from taskList_table Where priority = 0 ORDER BY date is null, date ASC, allDay ASC")
     fun getLowTasks(): LiveData<List<Task>>
 
-    @Query("SELECT * from taskList_table Where priority = 1 ORDER BY priority DESC, year is null, year ASC, month is null, month ASC, day is null, day ASC")
+    @Query("SELECT * from taskList_table Where priority = 1 ORDER BY date is null, date ASC, allDay ASC")
     fun getMediumTasks(): LiveData<List<Task>>
 
-    @Query("SELECT * from taskList_table Where priority = 2 ORDER BY priority DESC, year is null, year ASC, month is null, month ASC, day is null, day ASC")
+    @Query("SELECT * from taskList_table Where priority = 2 ORDER BY date is null, date ASC, allDay ASC")
     fun getHighTasks(): LiveData<List<Task>>
 
     //    @Query("SELECT * from taskList_table WHERE priority IN (:values) ORDER BY priority DESC, year is null, year ASC, month is null, month ASC, day is null, day ASC")

@@ -11,7 +11,5 @@ data class Task(
     var title: String = "",
     var description: String = "",
     var priority: Int = 0,
-    var year: Int? = null,
-    var month: Int? = null,
-    var day: Int? = null)
-    //var date: Calendar? = null)
+    var date: Long? = null,
+    var allDay: Boolean = true)
