@@ -16,6 +16,8 @@ import com.airongomes.listadetarefas.R
 import com.airongomes.listadetarefas.SetCalendar
 import com.airongomes.listadetarefas.database.TaskListDatabase
 import com.airongomes.listadetarefas.databinding.FragmentNewTaskBinding
+import com.airongomes.listadetarefas.spinnerAdapter.PriorityModel
+import com.airongomes.listadetarefas.spinnerAdapter.SpinnerPriorityAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_new_task.*
 import kotlinx.android.synthetic.main.fragment_overview.*
@@ -61,6 +63,19 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
 
+        // Observe the saved LiveData
+        viewModel.saved.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                Snackbar.make(
+                    binding.constraintLayout,
+                    "Tarefa salva com sucesso.",
+                    Snackbar.LENGTH_LONG
+                ).show()
+                viewModel.savedMessageShowed()
+                viewModel.cancelTask()
+            }
+        })
+
         // Observe the titleEmpty LiveData
         viewModel.emptyTitle.observe(viewLifecycleOwner, Observer {
             if (it == true) {
@@ -75,19 +90,15 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val spinner: Spinner = binding.spinner
         spinner.onItemSelectedListener = this
-        spinner.prompt = "Selecione a prioridade da tarefa"
-        spinner.gravity = Gravity.CENTER
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.priority_list,
-            R.layout.custom_layout_text
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(R.layout.custom_layout_text)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
-        }
+        //spinner.prompt = "Selecione a prioridade da tarefa"
+        //spinner.gravity = Gravity.CENTER
+        // Spinner Adapter with custom Adapter
+        spinner.adapter = SpinnerPriorityAdapter(requireContext(),
+            listOf(
+                PriorityModel(R.drawable.priority_icon_low, resources.getString(R.string.low_priority)),
+                PriorityModel(R.drawable.priority_icon_medium, resources.getString(R.string.medium_priority)),
+                PriorityModel(R.drawable.priority_icon_high, resources.getString(R.string.high_priority)),
+        ))
 
         // Call showDatePicker function
         binding.buttonSetDate.setOnClickListener{
@@ -118,9 +129,8 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
     /**
      * Use this Actions when the Spinner is selected
      */
-
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        Log.i("Log", "onItemSelected called")
+        Log.i("Log", "onItemSelected called: $pos")
         // retrieve the selected item
         //val item = parent.getItemAtPosition(pos).toString()
         viewModel.setPriority(pos)
@@ -130,6 +140,9 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         Log.i("Log", "onNothingSelected called")
     }
 
+    /**
+     * Open Dialog DatePicker
+     */
     private fun showDatePicker() {
         val cal = Calendar.getInstance()
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -151,8 +164,10 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
 //        dialog.show()
     }
 
-    fun showTimePicker() {
-
+    /**
+     * Open Dialog TimePicker
+     */
+    private fun showTimePicker() {
         val cal = Calendar.getInstance()
         val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
@@ -161,5 +176,6 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         SetCalendar().timePickerDialog(requireContext(), cal, timeSetListener)
     }
+
 }
 

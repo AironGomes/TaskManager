@@ -91,7 +91,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/item_time"
-                app:setPriorityImage="@{task.priority}"
+                app:priorityIcon="@{task}"
                 tools:srcCompat="@drawable/priority_icon_high" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

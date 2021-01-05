@@ -4,23 +4,23 @@
     <string name="lb_title_newTask">Criar nova tarefa</string>
     <string name="hint_title">Título:</string>
     <string name="hint_description">Descrição:</string>
-    <string name="lb_priority">Prioridade:</string>
+    <string name="lb_priority">Definir Prioridade:</string>
     <string name="lb_forecastDate">Data prevista:</string>
-    <string name="button_defineDate">DEFINIR DATA</string>
-    <string name="button_defineTime">DEFINIR HORA</string>
-    <string name="button_ok">OK</string>
-    <string name="contDesc_buttonOk">Botão: OK</string>
+    <string name="button_defineDate">DATA</string>
+    <string name="button_defineTime">HORA</string>
+    <string name="button_ok">CONFIRMAR</string>
+    <string name="contDesc_buttonOk">Botão: Confirmar</string>
     <string name="contDenc_buttonDefineDate">Botão: Definir data</string>
     <string name="contDesc_button_cancel">Botão: Cancelar</string>
-    <string name="button_cancel">cancelar</string>
+    <string name="button_cancel">CANCELAR</string>
     <string name="contDesc_addNewTask">Botão: Adicionar nova tarefa</string>
     <string name="lb_withoutWork">Nenhuma tarefa por enquanto…</string>
+    <string name="button_delete">EXCLUIR</string>
 
-    <string-array name="priority_list">
-        <item>Baixa</item>
-        <item>Média</item>
-        <item>Alta</item>
-    </string-array>
+    <string name="low_priority">Baixa</string>
+    <string name="medium_priority">Média</string>
+    <string name="high_priority">Alta</string>
+    <string name="button_save">SALVAR</string>
 
     <string-array name="filter_list">
         <item>Todos</item>
@@ -29,8 +29,4 @@
         <item>Alta</item>
     </string-array>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="button_delete">EXCLUIR</string>
 </resources>

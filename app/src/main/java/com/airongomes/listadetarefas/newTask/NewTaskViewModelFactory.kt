@@ -10,7 +10,7 @@ import com.airongomes.listadetarefas.overview.OverviewViewModel
 /**
  * This is pretty much boiler plate code for a ViewModel Factory.
  *
- * Provides the TaskDatabaseDao and context to the ViewModel.
+ * Provides the TaskDatabaseDao to the ViewModel.
  */
 class NewTaskViewModelFactory(
     private val dataSource: TaskListDao) : ViewModelProvider.Factory {

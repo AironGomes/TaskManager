@@ -49,5 +49,22 @@
             android:id="@+id/action_DetailFragment_to_OverviewFragment"
             app:destination="@id/OverviewFragment"
             app:popUpTo="@id/OverviewFragment" />
+        <action
+            android:id="@+id/action_DetailFragment_to_EditTaskFragment"
+            app:destination="@id/EditTaskFragment"
+            app:popUpTo="@id/DetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/EditTaskFragment"
+        android:name="com.airongomes.listadetarefas.editTask.EditTaskFragment"
+        android:label="Editar Tarefa"
+        tools:layout="@layout/fragment_edit_task">
+        <argument
+            android:name="taskId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_EditTaskFragment_to_DetailFragment"
+            app:destination="@id/DetailFragment"
+            app:popUpTo="@id/OverviewFragment" />
     </fragment>
 </navigation>

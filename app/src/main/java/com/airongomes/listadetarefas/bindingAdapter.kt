@@ -9,46 +9,9 @@ import kotlinx.android.synthetic.main.fragment_about.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-@BindingAdapter("itemTitle")
-fun TextView.itemTitle(task: Task?) {
-    task?.let {
-        text = task.title
-    }
-}
+/** -------------------- New Task & Edit Task -------------------------------------- **/
 
-@BindingAdapter("itemDescription")
-fun TextView.itemDescription(task: Task?) {
-    task?.let {
-        text = task.description
-    }
-}
-
-@BindingAdapter("setDate")
-fun TextView.setDate(task: Task?) {
-    task?.let {
-        if(task.date != null){
-            val myFormat = "dd/MM"
-            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-            text = sdf.format(task.date)
-        }
-    }
-}
-
-@BindingAdapter("setTime")
-fun TextView.setTime(task: Task?) {
-    task?.let {
-        if(task.date != null && task.allDay == false){
-            //val myFormat = "hh:mm a"
-            val myFormat = "HH:mm"
-            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-            text = sdf.format(task.date)
-        }
-        else if(task.date != null && task.allDay == true){
-            text = "Dia todo"
-        }
-    }
-}
-
+// Show text in button_setDate from New Task && edit_button_setDate from Edit Task
 @BindingAdapter("buttonSetDate")
 fun Button.buttonSetDate(cal: Calendar?) {
     cal?.let {
@@ -61,6 +24,7 @@ fun Button.buttonSetDate(cal: Calendar?) {
     }
 }
 
+// Show text in button_setTime from New Task && edit_button_setTime from Edit Task
 @BindingAdapter("buttonSetTime")
 fun Button.buttonSetTime(cal: Calendar?) {
     cal?.let {
@@ -73,24 +37,53 @@ fun Button.buttonSetTime(cal: Calendar?) {
     }
 }
 
-@BindingAdapter("setPriorityImage")
-fun ImageView.setPriorityImage(priorityValue: Int?) {
-    if (priorityValue == null) {
-        setImageResource(R.drawable.priority_icon_low)
-    } else {
-        setImageResource(
-            when (priorityValue) {
-                0 -> R.drawable.priority_icon_low
-                1 -> R.drawable.priority_icon_medium
-                else -> R.drawable.priority_icon_high
-            }
-        )
+/** -------------------- List Item ----------------------------------------------- **/
+
+// Set text in item_date
+@BindingAdapter("setDate")
+fun TextView.setDate(task: Task?) {
+    task?.let {
+        if(task.date != null){
+            val myFormat = "dd/MM"
+            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+            text = sdf.format(task.date)
+        }
     }
 }
 
+// Set text in item_time
+@BindingAdapter("setTime")
+fun TextView.setTime(task: Task?) {
+    task?.let {
+        if(task.date != null && !task.allDay){
+            //val myFormat = "hh:mm a"
+            val myFormat = "HH:mm"
+            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+            text = sdf.format(task.date)
+        }
+        else if(task.date != null && task.allDay){
+            text = "Dia todo"
+        }
+    }
+}
 
-// Task Detail -----------------------------------------------------------------------
+/** -------------------- List Item && Task Detail ---------------------------------- **/
 
+// Set image in priority_icon from Task Detail && iconPriority from List Item layout
+@BindingAdapter("priorityIcon")
+fun ImageView.priorityIcon(task: Task?) {
+    task?.let {
+        setImageResource(when(task.priority){
+            0 -> R.drawable.priority_icon_low
+            1 -> R.drawable.priority_icon_medium
+            else -> R.drawable.priority_icon_high
+        })
+    }
+}
+
+/** -------------------- Task Detail && Edit Task ------------------------------------- **/
+
+// Set text in view_title text from Task Detail && edit_title from Edit Task
 @BindingAdapter("titleDetail")
 fun TextView.titleDetail(task: Task?) {
     task?.let {
@@ -98,6 +91,7 @@ fun TextView.titleDetail(task: Task?) {
     }
 }
 
+// Set text in view_description from Task Detal && edit_description from Edit Task
 @BindingAdapter("descriptionDetail")
 fun TextView.descriptionDetail(task: Task?) {
     task?.let {
@@ -105,48 +99,47 @@ fun TextView.descriptionDetail(task: Task?) {
     }
 }
 
-//@BindingAdapter("dateDetail")
-//fun TextView.dateDetail(task: Task?) {
-//    task?.let {
-//        if (task.day != null && task.month != null && task.year != null) {
-//            val day = task.day
-//            val month = task.month
-//            val year = task.year
-//            var monthString = ""
-//            when (month) {
-//                0 -> monthString = "Jan"
-//                1 -> monthString = "Fev"
-//                2 -> monthString = "Mar"
-//                3 -> monthString = "Abr"
-//                4 -> monthString = "Mai"
-//                5 -> monthString = "Jun"
-//                6 -> monthString = "Jul"
-//                7 -> monthString = "Ago"
-//                8 -> monthString = "Set"
-//                9 -> monthString = "Out"
-//                10 -> monthString = "Nov"
-//                11 -> monthString = "Dez"
-//            }
-//            val dateString = "$day $monthString $year"
-//            text = dateString
-//        }
-//    }
-//}
+/** -------------------- Task Detail  ----------------------------------------------- **/
 
-//@BindingAdapter("dateDetail")
-//fun Button.dateDetail(task: Task?) {
-//    task?.let {
-//        text = if(task.year != null && task.month != null && task.day != null) {
-//            val cal = Calendar.getInstance()
-//            cal.set(Calendar.YEAR, task.year!!)
-//            cal.set(Calendar.MONTH, task.month!!)
-//            cal.set(Calendar.DAY_OF_MONTH, task.day!!)
-//
-//            val myFormat = "dd/MM/yyyy"
-//            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-//            sdf.format(cal.time)
-//
-//        } else {resources.getText(R.string.button_defineDate)}
-//
-//    }
-//}
+// Set text in view_date text
+@BindingAdapter("viewSetDate")
+fun TextView.viewSetDate(task: Task?) {
+    task?.let {
+        if(task.date == null) {
+            //text = resources.getText(R.string.button_defineDate)
+            text = "Não há data"
+        }
+        else {
+            val myFormat = "EEE, d MMM yyy"
+            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+            text = sdf.format(task.date)
+        }
+    }
+
+}
+
+// Set text in view_time text
+@BindingAdapter("viewSetTime")
+fun TextView.viewSetTime(task: Task?) {
+    task?.let {
+        if(task.date != null && task.allDay) {
+            //text = resources.getText(R.string.button_defineTime)
+            text = "Todo o dia"
+        }
+        else if(task.date != null && !task.allDay) {
+            val myFormat = "hh:mm aaa"
+            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+            text = sdf.format(task.date)
+        }
+    }
+}
+
+// Show label if task.date isn't null
+@BindingAdapter("showLabel")
+fun TextView.showLabel(task: Task?) {
+    task?.let {
+        if(task.date != null) text = "Horário"
+    }
+}
+
+/** ------------------------------------------------------------------------------ **/

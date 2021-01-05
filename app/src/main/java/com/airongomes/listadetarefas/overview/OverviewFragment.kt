@@ -104,10 +104,10 @@ class OverviewFragment : Fragment() {
         })
 
         // Navigate to DetailFragment
-        viewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { nightId ->
-            nightId?.let {
+        viewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { taskId ->
+            taskId?.let {
                 this.findNavController().navigate(
-                    OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(nightId)
+                    OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(taskId)
                 )
                 viewModel.onTaskDetailNavigated()
             }
