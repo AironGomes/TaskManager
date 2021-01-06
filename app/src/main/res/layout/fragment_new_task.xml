@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.airongomes.listadetarefas.newTask.NewTaskViewModel" />
+            type="com.airongomes.taskmanager.newTask.NewTaskViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,12 +89,12 @@
 
         <CheckBox
             android:id="@+id/checkbox_todoODia"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:checked="true"
             android:enabled="false"
-            android:text="Dia todo"
+            android:text="Todo o dia"
             app:layout_constraintBottom_toBottomOf="@+id/button_setTime"
             app:layout_constraintStart_toEndOf="@+id/button_setTime"
             app:layout_constraintTop_toTopOf="@+id/button_setTime" />

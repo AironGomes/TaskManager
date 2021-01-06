@@ -6,11 +6,11 @@
     <data>
         <variable
             name="task"
-            type="com.airongomes.listadetarefas.database.Task" />
+            type="com.airongomes.taskmanager.database.Task" />
         
         <variable
             name="clickListener"
-            type="com.airongomes.listadetarefas.adapter.TaskClickListener" />
+            type="com.airongomes.taskmanager.adapter.TaskClickListener" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,7 +81,7 @@
                 app:layout_constraintStart_toEndOf="@id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/item_date"
                 app:setTime="@{task}"
-                tools:text="20:00" />
+                tools:text="Todo o dia" />
 
             <ImageView
                 android:id="@+id/iconPriority"

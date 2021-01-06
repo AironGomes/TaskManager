@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.airongomes.listadetarefas.overview.OverviewViewModel" />
+            type="com.airongomes.taskmanager.overview.OverviewViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
