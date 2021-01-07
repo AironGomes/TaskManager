@@ -13,7 +13,10 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
             android:id="@+id/lb_newTask"
@@ -28,35 +31,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_title"
+            android:id="@+id/new_title"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/hint_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lb_newTask">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:hint="@string/hint_title"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_description"
+            android:id="@+id/new_description"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_title">
+            app:layout_constraintTop_toBottomOf="@id/new_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
                 android:hint="@string/hint_description"
+                android:gravity="top"
                 android:lines="5"
                 android:maxLength="250" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,20 +68,20 @@
         <Button
             android:id="@+id/button_setDate"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:contentDescription="@string/contDenc_buttonDefineDate"
+            android:contentDescription="@string/contDesc_buttonDefineDate"
             android:textSize="18sp"
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_description"
+            app:layout_constraintTop_toBottomOf="@id/new_description"
             tools:text="23/12/2021" />
 
         <Button
             android:id="@+id/button_setTime"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:enabled="false"
@@ -107,7 +111,7 @@
             android:layout_marginStart="8dp"
             android:textStyle="bold"
             android:text="@string/lb_priority"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_setDate"/>
 

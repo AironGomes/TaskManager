@@ -61,13 +61,13 @@ class NewTaskViewModel(
      */
     fun saveTask(view: View) {
 
-        if (view.edit_title.editText?.text?.isEmpty() == true) {
+        if (view.new_title.editText?.text?.isEmpty() == true) {
             _emptyTitle.value = true
         }
         else {
             val task = Task()
-            task.title = view.edit_title.editText?.text.toString()
-            task.description = view.edit_description.editText?.text.toString()
+            task.title = view.new_title.editText?.text.toString()
+            task.description = view.new_description.editText?.text.toString()
             task.priority = priorityValue.value!!
 
             timeTask.value?.let {

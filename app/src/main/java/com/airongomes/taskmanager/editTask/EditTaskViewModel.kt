@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.airongomes.taskmanager.database.Task
 import com.airongomes.taskmanager.database.TaskListDao
-import kotlinx.android.synthetic.main.fragment_new_task.view.*
+import kotlinx.android.synthetic.main.fragment_edit_task.view.*
 import kotlinx.coroutines.launch
 import java.util.*
 

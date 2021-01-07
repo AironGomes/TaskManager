@@ -15,6 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true"
         tools:context=".detail.DetailFragment">
 
         <TextView
@@ -29,55 +32,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:hint="Título"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lb_editTask">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:singleLine="true"
-                android:hint="Título"
                 android:textSize="18sp"
                 app:titleDetail="@{viewModel.task}"
                 tools:text="Título" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:hint="Descrição"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="5"
                 android:gravity="top"
                 android:maxLength="250"
-                android:hint="Descrição"
                 app:descriptionDetail="@{viewModel.task}"
                 tools:text="Descrição" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/edit_button_setDate"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:contentDescription="@string/contDenc_buttonDefineDate"
+            android:contentDescription="@string/contDesc_buttonDefineDate"
             android:textSize="18sp"
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +90,7 @@
         <Button
             android:id="@+id/edit_button_setTime"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="18sp"
@@ -116,7 +119,7 @@
             android:layout_marginStart="8dp"
             android:textStyle="bold"
             android:text="@string/lb_priority"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_button_setDate"/>
 
@@ -135,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:contentDescription="@string/contDesc_button_cancel"
+            android:contentDescription="@string/contDesc_button_save"
             android:text="@string/button_save"
             android:textSize="16sp"
             android:onClick="@{() -> viewModel.updateTask(editConstraintLayout)}"

@@ -12,15 +12,12 @@ import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.airongomes.taskmanager.R
-import com.airongomes.taskmanager.SetCalendar
+import com.airongomes.taskmanager.*
 import com.airongomes.taskmanager.database.TaskListDatabase
 import com.airongomes.taskmanager.databinding.FragmentNewTaskBinding
 import com.airongomes.taskmanager.spinnerAdapter.PriorityModel
 import com.airongomes.taskmanager.spinnerAdapter.SpinnerPriorityAdapter
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_new_task.*
-import kotlinx.android.synthetic.main.fragment_overview.*
 import java.util.*
 
 
@@ -94,21 +91,23 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             listOf(
                 PriorityModel(R.drawable.priority_icon_low, resources.getString(R.string.low_priority)),
                 PriorityModel(R.drawable.priority_icon_medium, resources.getString(R.string.medium_priority)),
-                PriorityModel(R.drawable.priority_icon_high, resources.getString(R.string.high_priority)),
-        ))
+                PriorityModel(R.drawable.priority_icon_high, resources.getString(R.string.high_priority))))
 
         // Call showDatePicker function
         binding.buttonSetDate.setOnClickListener{
+            hideKeyboard(it, requireContext())
             showDatePicker()
         }
 
         // Call showTimePicker function
         binding.buttonSetTime.setOnClickListener{
+            hideKeyboard(it, requireContext())
             showTimePicker()
         }
 
         // Listener for checkbox state
-        binding.checkboxTodoODia.setOnCheckedChangeListener{_, isChecked ->
+        binding.checkboxTodoODia.setOnCheckedChangeListener{view, isChecked ->
+            hideKeyboard(view, requireContext())
             if(isChecked) {
                 binding.buttonSetTime.isEnabled = false
                 binding.buttonSetTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.material_on_background_disabled))
@@ -120,6 +119,11 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
 
+        // Focus change listener to the viewGroup
+        binding.constraintLayout.setOnFocusChangeListener { view, hasFocus ->
+            if(hasFocus){
+                hideKeyboard(view, requireContext())
+            }}
         return binding.root
     }
 
@@ -152,7 +156,7 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             viewModel.getDate(cal)
             binding.checkboxTodoODia.isEnabled = true
         }
-        SetCalendar().datePickerDialog(requireContext(), cal, dateSetListener)
+        datePickerDialog(requireContext(), cal, dateSetListener)
     }
 
     /**
@@ -165,7 +169,7 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             cal.set(Calendar.MINUTE, minute)
             viewModel.getTime(cal)
         }
-        SetCalendar().timePickerDialog(requireContext(), cal, timeSetListener)
+        timePickerDialog(requireContext(), cal, timeSetListener)
     }
 
 }

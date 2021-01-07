@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.airongomes.taskmanager.database.Task
+import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,6 +48,9 @@ fun TextView.setDate(task: Task?) {
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
             text = sdf.format(task.date)
         }
+        else{
+            text = ""
+        }
     }
 }
 
@@ -62,6 +66,9 @@ fun TextView.setTime(task: Task?) {
         }
         else if(task.date != null && task.allDay){
             text = "Todo o dia"
+        }
+        else{
+            text = ""
         }
     }
 }

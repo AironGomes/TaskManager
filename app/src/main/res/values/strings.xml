@@ -10,7 +10,8 @@
     <string name="button_defineTime">HORA</string>
     <string name="button_ok">CONFIRMAR</string>
     <string name="contDesc_buttonOk">Botão: Confirmar</string>
-    <string name="contDenc_buttonDefineDate">Botão: Definir data</string>
+    <string name="contDesc_button_save">Botão: Salvar</string>
+    <string name="contDesc_buttonDefineDate">Botão: Definir data</string>
     <string name="contDesc_button_cancel">Botão: Cancelar</string>
     <string name="button_cancel">CANCELAR</string>
     <string name="contDesc_addNewTask">Botão: Adicionar nova tarefa</string>
@@ -21,6 +22,8 @@
     <string name="medium_priority">Média</string>
     <string name="high_priority">Alta</string>
     <string name="button_save">SALVAR</string>
+    <string name="label_data">Label Data</string>
+    <string name="label_time">Label Time</string>
 
     <string-array name="filter_list">
         <item>Todos</item>

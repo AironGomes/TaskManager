@@ -14,14 +14,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.airongomes.taskmanager.R
-import com.airongomes.taskmanager.SetCalendar
+import com.airongomes.taskmanager.*
 import com.airongomes.taskmanager.database.TaskListDatabase
 import com.airongomes.taskmanager.databinding.FragmentEditTaskBinding
 import com.airongomes.taskmanager.spinnerAdapter.PriorityModel
 import com.airongomes.taskmanager.spinnerAdapter.SpinnerPriorityAdapter
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
+
 
 /**
  * Show the Task's details and allows edit it
@@ -61,8 +61,8 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             listOf(
                 PriorityModel(R.drawable.priority_icon_low, resources.getString(R.string.low_priority)),
                 PriorityModel(R.drawable.priority_icon_medium, resources.getString(R.string.medium_priority)),
-                PriorityModel(R.drawable.priority_icon_high, resources.getString(R.string.high_priority)),
-            ))
+                PriorityModel(R.drawable.priority_icon_high, resources.getString(R.string.high_priority)))
+        )
 
         // Observe the titleEmpty LiveData
         viewModel.emptyTitle.observe(viewLifecycleOwner, {
@@ -109,24 +109,25 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         // Call showDatePicker function
         binding.editButtonSetDate.setOnClickListener{
+            hideKeyboard(it, requireContext())
             showDatePicker()
         }
 
         // Call showTimePicker function
         binding.editButtonSetTime.setOnClickListener{
+            hideKeyboard(it, requireContext())
             showTimePicker()
         }
 
         // Listener for checkbox state
-        binding.checkboxTodoODia.setOnCheckedChangeListener{ _, isChecked ->
+        binding.checkboxTodoODia.setOnCheckedChangeListener{ view, isChecked ->
+            hideKeyboard(view, requireContext())
             if(isChecked) {
                 binding.editButtonSetTime.isEnabled = false
                 binding.editButtonSetTime.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.material_on_background_disabled
-                    )
-                )
+                        R.color.material_on_background_disabled))
                 viewModel.setAllDayToTrue()
             }
             else {
@@ -134,11 +135,15 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.editButtonSetTime.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.secondaryColor
-                    )
-                )
+                        R.color.secondaryColor))
             }
         }
+
+        // Focus change listener to the viewGroup
+        binding.editConstraintLayout.setOnFocusChangeListener { view, hasFocus ->
+            if(hasFocus){
+                hideKeyboard(view, requireContext())
+            }}
         return binding.root
     }
 
@@ -170,7 +175,7 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             cal.set(Calendar.SECOND, 59)
             viewModel.getDate(cal)
         }
-        SetCalendar().datePickerDialog(requireContext(), cal, dateSetListener)
+        datePickerDialog(requireContext(), cal, dateSetListener)
     }
 
     /**
@@ -183,7 +188,6 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             cal.set(Calendar.MINUTE, minute)
             viewModel.getTime(cal)
         }
-        SetCalendar().timePickerDialog(requireContext(), cal, timeSetListener)
+        timePickerDialog(requireContext(), cal, timeSetListener)
     }
-
 }
