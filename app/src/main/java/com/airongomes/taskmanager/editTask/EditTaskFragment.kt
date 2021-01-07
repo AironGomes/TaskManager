@@ -52,7 +52,7 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Set LifeCyclerOwer that able the fragment to observe LiveData
         binding.lifecycleOwner = this
 
-        val spinner: Spinner = binding.spinner
+        val spinner: Spinner = binding.spinnerEditTask
         spinner.onItemSelectedListener = this
         //spinner.prompt = "Selecione a prioridade da tarefa"
         //spinner.gravity = Gravity.CENTER
@@ -120,7 +120,7 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         // Listener for checkbox state
-        binding.checkboxTodoODia.setOnCheckedChangeListener{ view, isChecked ->
+        binding.checkboxTodoODiaEditTask.setOnCheckedChangeListener{ view, isChecked ->
             hideKeyboard(view, requireContext())
             if(isChecked) {
                 binding.editButtonSetTime.isEnabled = false

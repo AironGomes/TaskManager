@@ -105,10 +105,12 @@
 
             <TextView
                 android:id="@+id/text_withoutWork"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
                 android:text="@string/lb_withoutWork"
+                android:contentDescription="@string/lb_withoutWork"
+                android:textAlignment="center"
                 android:textSize="24sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/image_withoutWork"
@@ -122,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:visibility="gone"
+                android:contentDescription="Imagem televisão"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:contentDescription="@string/contDesc_addNewTask"
+            android:contentDescription="Nova Tarefa"
             android:onClick="@{() -> viewModel.createNewTask()}"
             app:srcCompat="@drawable/fab_add"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

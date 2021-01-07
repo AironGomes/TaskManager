@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/contDesc_buttonDefineDate"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_description"
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/secondaryColor"
             app:buttonSetTime="@{viewModel.timeTask}"
             app:layout_constraintBaseline_toBaselineOf="@+id/edit_button_setDate"
@@ -101,13 +101,14 @@
             tools:text="HORA" />
 
         <CheckBox
-            android:id="@+id/checkbox_todoODia"
-            android:layout_width="wrap_content"
+            android:id="@+id/checkbox_todoODia_editTask"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="Todo o dia"
             android:checked="@{viewModel.allDay}"
+            android:text="Todo o dia"
             app:layout_constraintBottom_toBottomOf="@+id/edit_button_setTime"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit_button_setTime"
             app:layout_constraintTop_toTopOf="@+id/edit_button_setTime" />
 
@@ -124,7 +125,7 @@
             app:layout_constraintTop_toBottomOf="@id/edit_button_setDate"/>
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinner_editTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
@@ -134,11 +135,11 @@
             tools:listitem="@layout/custom_layout_priority" />
 
         <Button
-            android:id="@+id/button_save"
+            android:id="@+id/button_save_editTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:contentDescription="@string/contDesc_button_save"
+            android:contentDescription="@string/button_save"
             android:text="@string/button_save"
             android:textSize="16sp"
             android:onClick="@{() -> viewModel.updateTask(editConstraintLayout)}"
@@ -146,18 +147,18 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <Button
-            android:id="@+id/button_cancel"
+            android:id="@+id/button_cancel_editTask"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:contentDescription="@string/contDesc_button_cancel"
+            android:contentDescription="@string/button_cancel"
             android:onClick="@{() -> viewModel.closeEditTask()}"
             android:text="@string/button_cancel"
             android:textColor="@color/secondaryColor"
             android:textSize="16sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button_save"
-            app:layout_constraintStart_toEndOf="@+id/button_save" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_save_editTask"
+            app:layout_constraintStart_toEndOf="@+id/button_save_editTask" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.editTask()}"
+            android:contentDescription="Editar Tarefa"
             app:layout_constraintBottom_toBottomOf="@+id/lb_detailTask"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -128,11 +129,11 @@
             tools:text="Todo o dia" />
 
         <Button
-            android:id="@+id/button_cancel"
+            android:id="@+id/button_cancel_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:contentDescription="@string/contDesc_button_cancel"
+            android:contentDescription="@string/button_cancel"
             android:text="@string/button_cancel"
             android:textSize="16sp"
             android:onClick="@{() -> viewModel.closeDetailFragment()}"
@@ -141,11 +142,11 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
 
         <Button
-            android:id="@+id/button_delete"
+            android:id="@+id/button_delete_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:contentDescription="@string/contDesc_button_cancel"
+            android:contentDescription="@string/button_delete"
             android:onClick="@{() -> viewModel.deleteTask()}"
             android:text="@string/button_delete"
             android:textSize="16sp"

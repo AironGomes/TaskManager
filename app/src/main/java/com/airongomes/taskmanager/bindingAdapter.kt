@@ -18,9 +18,11 @@ fun Button.buttonSetDate(cal: Calendar?) {
         val myFormat = "dd/MM/yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
         text = sdf.format(cal.time)
+        contentDescription = sdf.format(cal.time)
     }
     if(cal == null) {
         text = resources.getText(R.string.button_defineDate)
+        contentDescription = resources.getText(R.string.button_defineDate)
     }
 }
 
@@ -31,9 +33,11 @@ fun Button.buttonSetTime(cal: Calendar?) {
         val myFormat = "HH:mm"
         val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
         text = sdf.format(cal.time)
+        contentDescription = sdf.format(cal.time)
     }
     if(cal == null) {
         text = resources.getText(R.string.button_defineTime)
+        contentDescription = resources.getText(R.string.button_defineTime)
     }
 }
 

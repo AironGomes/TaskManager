@@ -71,8 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:contentDescription="@string/contDesc_buttonDefineDate"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/new_description"
@@ -85,21 +84,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:enabled="false"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:buttonSetTime="@{viewModel.timeTask}"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
             app:layout_constraintStart_toEndOf="@+id/button_setDate"
-            tools:text="HORA" />
+            tools:text="23:59" />
 
         <CheckBox
             android:id="@+id/checkbox_todoODia"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:checked="true"
             android:enabled="false"
             android:text="Todo o dia"
             app:layout_constraintBottom_toBottomOf="@+id/button_setTime"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/button_setTime"
             app:layout_constraintTop_toTopOf="@+id/button_setTime" />
 
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:contentDescription="@string/contDesc_buttonOk"
+            android:contentDescription="@string/button_ok"
             android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
             android:text="@string/button_ok"
             android:textSize="16sp"
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:contentDescription="@string/contDesc_button_cancel"
+            android:contentDescription="@string/button_cancel"
             android:onClick="@{() -> viewModel.cancelTask()}"
             android:text="@string/button_cancel"
             android:textColor="@color/secondaryColor"
