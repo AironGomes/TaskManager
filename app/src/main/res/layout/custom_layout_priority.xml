@@ -23,7 +23,7 @@
         android:layout_marginStart="8dp"
         android:textColor="#787575"
         android:textSize="24sp"
-        android:text="Baixa"
+        android:text="@string/low_priority"
         tools:text="Baixa"/>
 
 </LinearLayout>

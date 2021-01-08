@@ -22,7 +22,7 @@
                 android:id="@+id/lb_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
                 android:contentDescription="@string/lb_priority"
                 android:text="@string/lb_priority"
                 android:textSize="20sp"
@@ -44,7 +44,6 @@
                     android:id="@+id/chip_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     app:singleLine="true"
                     android:tag="111"
                     app:selectionRequired="true"
@@ -112,16 +111,16 @@
                 android:id="@+id/text_withoutWork"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="36dp"
-                android:text="@string/lb_withoutWork"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/lb_withoutWork"
+                android:text="@string/lb_withoutWork"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/image_withoutWork"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:visibility="gone"/>
+                app:layout_constraintTop_toTopOf="@+id/recyclerview"
+                tools:visibility="gone" />
 
             <ImageView
                 android:id="@+id/image_withoutWork"
@@ -130,10 +129,9 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:visibility="gone"
                 android:contentDescription="@string/icon_tv"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_withoutWork"
                 app:srcCompat="@drawable/no_task_icon3"
                 tools:visibility="gone"/>
 

@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskManager">
         <activity android:name="com.airongomes.taskmanager.MainActivity"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

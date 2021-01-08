@@ -69,7 +69,7 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (it == true) {
                 Snackbar.make(
                     binding.editConstraintLayout,
-                    "Erro: Não é possível criar uma tarefa sem título.",
+                    getString(R.string.error_withoutTitle),
                     Snackbar.LENGTH_LONG
                 ).show()
                 viewModel.emptyTitleMessageShowed()
@@ -99,7 +99,7 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (it == true) {
                 Snackbar.make(
                     binding.editConstraintLayout,
-                    "Tarefa salva com sucesso.",
+                    getString(R.string.msg_taskSaved),
                     Snackbar.LENGTH_LONG
                 ).show()
                 viewModel.savedMessageShowed()
@@ -151,7 +151,6 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
      * Use this Actions when the Spinner is selected
      */
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        Log.i("Log", "onItemSelected called")
         // retrieve the selected item
         //val item = parent.getItemAtPosition(pos).toString()
         viewModel.setPriority(pos)

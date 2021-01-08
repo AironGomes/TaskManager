@@ -1,35 +1,50 @@
 <resources>
     <string name="app_name">Gerenciador de Tarefas</string>
+
     <string name="lb_button_add_newTask">Adicionar nova tarefa</string>
-    <string name="lb_title_newTask">Criar nova tarefa</string>
+    <string name="lb_definePriority">Definir Prioridade:</string>
+    <string name="lb_forecastDate">Data prevista:</string>
+    <string name="lb_withoutWork">Nenhuma tarefa por enquanto…</string>
+    <string name="lb_data">Data</string>
+    <string name="lb_time">Horário</string>
+    <string name="lb_allDay">Todo o dia</string>
+    <string name="lb_about_title">Obrigado por utilizar nosso App!</string>
+    <string name="lb_about_subtitle">Esperamos que possa ajuda-lo em seu dia a dia.</string>
+    <string name="lb_about_version">Esta é a versão: V1.0.\nEstaremos trazendo novidades em breve.</string>
+    <string name="lb_about_contact">Caso tenha sugestões ou deseje relatar um problema, envie-nos uma mensagem:\nairon.gms@gmail.com</string>
+    <string name="lb_about_developer">Este aplicativo foi desenvolvido por: Airon Gomes</string>
+    <string name="lb_priority">Prioridade</string>
+
+    <string name="title_detail">Detalhes da tarefa</string>
+    <string name="title_newTask">Criar nova tarefa</string>
+
     <string name="hint_title">Título:</string>
     <string name="hint_description">Descrição:</string>
-    <string name="lb_priority">Definir Prioridade:</string>
-    <string name="lb_forecastDate">Data prevista:</string>
+
+    <string name="button_save">SALVAR</string>
     <string name="button_defineDate">DATA</string>
     <string name="button_defineTime">HORA</string>
     <string name="button_ok">CONFIRMAR</string>
-    <string name="contDesc_buttonOk">Botão: Confirmar</string>
-    <string name="contDesc_button_save">Botão: Salvar</string>
-    <string name="contDesc_buttonDefineDate">Botão: Definir data</string>
-    <string name="contDesc_button_cancel">Botão: Cancelar</string>
     <string name="button_cancel">CANCELAR</string>
-    <string name="contDesc_addNewTask">Botão: Adicionar nova tarefa</string>
-    <string name="lb_withoutWork">Nenhuma tarefa por enquanto…</string>
     <string name="button_delete">EXCLUIR</string>
 
     <string name="low_priority">Baixa</string>
     <string name="medium_priority">Média</string>
     <string name="high_priority">Alta</string>
-    <string name="button_save">SALVAR</string>
-    <string name="label_data">Label Data</string>
-    <string name="label_time">Label Time</string>
 
-    <string-array name="filter_list">
-        <item>Todos</item>
-        <item>Baixa</item>
-        <item>Média</item>
-        <item>Alta</item>
-    </string-array>
+    <string name="icon_tv">Imagem televisão</string>
+    <string name="icon_newTask">Nova Tarefa</string>
+    <string name="icon_edit">Editar Tarefa</string>
+    <string name="title_editTask">Editar tarefa</string>
+    <string name="checkbox_allDay">CheckBox Todo o dia</string>
+
+    <string name="filter_all">Todos</string>
+    <string name="filter_low">Baixa</string>
+    <string name="filter_medium">Média</string>
+    <string name="filter_high">Alta</string>
+
+    <string name="withoutDate">Não há data</string>
+    <string name="error_withoutTitle">Erro: Não é possível criar uma tarefa sem título.</string>
+    <string name="msg_taskSaved">Tarefa salva com sucesso.</string>
 
 </resources>

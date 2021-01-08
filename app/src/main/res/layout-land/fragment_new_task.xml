@@ -1,116 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="viewModel"
-            type="com.airongomes.taskmanager.editTask.EditTaskViewModel" />
+            type="com.airongomes.taskmanager.newTask.NewTaskViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/edit_constraint_layout"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        android:focusable="true"
-        tools:context=".detail.DetailFragment">
+        android:focusable="true">
 
         <TextView
-            android:id="@+id/lb_editTask"
-            android:layout_width="wrap_content"
+            android:id="@+id/lb_newTask"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:contentDescription="@string/title_newTask"
+            android:text="@string/title_newTask"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:text="@string/title_editTask"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_title"
+            android:id="@+id/new_title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/hint_title"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lb_editTask">
+            app:layout_constraintTop_toBottomOf="@id/lb_newTask">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:textSize="18sp"
-                app:titleDetail="@{viewModel.task}"
-                tools:text="Título" />
+                android:hint="@string/hint_title"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_description"
+            android:id="@+id/new_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/hint_description"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_title">
+            app:layout_constraintTop_toBottomOf="@id/new_title">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="5"
+                android:hint="@string/hint_description"
                 android:gravity="top"
-                android:maxLength="250"
-                app:descriptionDetail="@{viewModel.task}"
-                tools:text="Descrição" />
-
+                android:lines="3"
+                android:maxLength="250" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/edit_button_setDate"
+            android:id="@+id/button_setDate"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:textSize="16sp"
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_description"
-            tools:text="DATA" />
+            app:layout_constraintTop_toBottomOf="@id/new_description"
+            tools:text="23/12/2021" />
 
         <Button
-            android:id="@+id/edit_button_setTime"
+            android:id="@+id/button_setTime"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:enabled="false"
             android:textSize="16sp"
-            android:textColor="@color/secondaryColor"
             app:buttonSetTime="@{viewModel.timeTask}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_button_setDate"
-            app:layout_constraintStart_toEndOf="@+id/edit_button_setDate"
-            tools:text="HORA" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
+            app:layout_constraintStart_toEndOf="@+id/button_setDate"
+            tools:text="23:59" />
 
         <CheckBox
-            android:id="@+id/checkbox_todoODia_editTask"
-            android:layout_width="0dp"
+            android:id="@+id/checkbox_todoODia"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:checked="@{viewModel.allDay}"
+            android:checked="true"
+            android:enabled="false"
             android:contentDescription="@string/checkbox_allDay"
             android:text="@string/lb_allDay"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_button_setTime"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_button_setTime"
-            app:layout_constraintTop_toTopOf="@+id/edit_button_setTime" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_setTime"
+            app:layout_constraintStart_toEndOf="@+id/button_setTime"
+            app:layout_constraintTop_toTopOf="@+id/button_setTime" />
 
         <TextView
             android:id="@+id/lb_priority"
@@ -118,48 +110,48 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
-            android:textStyle="bold"
             android:contentDescription="@string/lb_definePriority"
             android:text="@string/lb_definePriority"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_button_setDate"/>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_setDate"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <Spinner
-            android:id="@+id/spinner_editTask"
+            android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toBottomOf="@+id/lb_priority"
-            app:layout_constraintStart_toEndOf="@+id/lb_priority"
-            app:layout_constraintTop_toTopOf="@+id/lb_priority"
-            tools:listitem="@layout/custom_layout_priority" />
+            app:layout_constraintEnd_toEndOf="@+id/lb_priority"
+            app:layout_constraintStart_toStartOf="@+id/lb_priority"
+            app:layout_constraintTop_toBottomOf="@+id/lb_priority"
+            tools:listitem="@layout/custom_layout_priority"/>
 
         <Button
-            android:id="@+id/button_save_editTask"
+            android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:contentDescription="@string/button_save"
-            android:text="@string/button_save"
-            android:textSize="16sp"
-            android:onClick="@{() -> viewModel.updateTask(editConstraintLayout)}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:contentDescription="@string/button_ok"
+            android:text="@string/button_ok"
+            android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button_cancel_editTask"
+            android:id="@+id/button_cancel"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:contentDescription="@string/button_cancel"
             android:text="@string/button_cancel"
-            android:onClick="@{() -> viewModel.closeEditTask()}"
+            android:onClick="@{() -> viewModel.cancelTask()}"
             android:textColor="@color/secondaryColor"
-            android:textSize="16sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button_save_editTask"
-            app:layout_constraintStart_toEndOf="@+id/button_save_editTask" />
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_ok"
+            app:layout_constraintStart_toEndOf="@+id/button_ok" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -62,7 +62,7 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (it == true) {
                 Snackbar.make(
                     binding.constraintLayout,
-                    "Tarefa salva com sucesso.",
+                    resources.getText(R.string.msg_taskSaved),
                     Snackbar.LENGTH_LONG
                 ).show()
                 viewModel.savedMessageShowed()
@@ -75,7 +75,7 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (it == true) {
                 Snackbar.make(
                     binding.constraintLayout,
-                    "Erro: Não é possível criar uma tarefa sem título.",
+                    resources.getText(R.string.error_withoutTitle),
                     Snackbar.LENGTH_LONG
                 ).show()
                 viewModel.emptyTitleMessageShowed()
@@ -131,7 +131,6 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
      * Use this Actions when the Spinner is selected
      */
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        Log.i("Log", "onItemSelected called: $pos")
         // retrieve the selected item
         //val item = parent.getItemAtPosition(pos).toString()
         viewModel.setPriority(pos)

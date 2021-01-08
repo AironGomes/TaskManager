@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text="@{task.title}"
+                android:contentDescription="@{task.title}"
                 android:textAlignment="textStart"
                 android:textSize="20sp"
                 android:textStyle="bold"

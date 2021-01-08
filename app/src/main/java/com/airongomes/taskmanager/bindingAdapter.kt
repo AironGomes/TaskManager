@@ -51,6 +51,7 @@ fun TextView.setDate(task: Task?) {
             val myFormat = "dd/MM"
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
             text = sdf.format(task.date)
+            contentDescription = sdf.format(task.date)
         }
         else{
             text = ""
@@ -67,9 +68,11 @@ fun TextView.setTime(task: Task?) {
             val myFormat = "HH:mm"
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
             text = sdf.format(task.date)
+            contentDescription = sdf.format(task.date)
         }
         else if(task.date != null && task.allDay){
-            text = "Todo o dia"
+            text = resources.getText(R.string.lb_allDay)
+            contentDescription = resources.getText(R.string.lb_allDay)
         }
         else{
             text = ""
@@ -83,11 +86,25 @@ fun TextView.setTime(task: Task?) {
 @BindingAdapter("priorityIcon")
 fun ImageView.priorityIcon(task: Task?) {
     task?.let {
-        setImageResource(when(task.priority){
-            0 -> R.drawable.priority_icon_low
-            1 -> R.drawable.priority_icon_medium
-            else -> R.drawable.priority_icon_high
-        })
+        when(task.priority){
+            0 -> {
+                setImageResource(R.drawable.priority_icon_low)
+                contentDescription = resources.getText(R.string.low_priority)
+            }
+            1 -> {
+                setImageResource(R.drawable.priority_icon_medium)
+                contentDescription = resources.getText(R.string.medium_priority)
+            }
+            else -> {
+                setImageResource(R.drawable.priority_icon_high)
+                contentDescription = resources.getText(R.string.high_priority)
+            }
+        }
+//        setImageResource(when(task.priority){
+//            0 -> R.drawable.priority_icon_low
+//            1 -> R.drawable.priority_icon_medium
+//            else -> R.drawable.priority_icon_high
+//        })
     }
 }
 
@@ -98,10 +115,11 @@ fun ImageView.priorityIcon(task: Task?) {
 fun TextView.titleDetail(task: Task?) {
     task?.let {
         text = task.title
+        contentDescription = task.title
     }
 }
 
-// Set text in view_description from Task Detal && edit_description from Edit Task
+// Set text in view_description from Task Detail && edit_description from Edit Task
 @BindingAdapter("descriptionDetail")
 fun TextView.descriptionDetail(task: Task?) {
     task?.let {
@@ -117,12 +135,14 @@ fun TextView.viewSetDate(task: Task?) {
     task?.let {
         if(task.date == null) {
             //text = resources.getText(R.string.button_defineDate)
-            text = "Não há data"
+            text = resources.getText(R.string.withoutDate)
+            contentDescription = resources.getText(R.string.withoutDate)
         }
         else {
             val myFormat = "EEE, d MMM yyy"
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
             text = sdf.format(task.date)
+            contentDescription = sdf.format(task.date)
         }
     }
 
@@ -134,12 +154,14 @@ fun TextView.viewSetTime(task: Task?) {
     task?.let {
         if(task.date != null && task.allDay) {
             //text = resources.getText(R.string.button_defineTime)
-            text = "Todo o dia"
+            text = resources.getText(R.string.lb_allDay)
+            contentDescription = resources.getText(R.string.lb_allDay)
         }
         else if(task.date != null && !task.allDay) {
             val myFormat = "hh:mm aaa"
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
             text = sdf.format(task.date)
+            contentDescription = sdf.format(task.date)
         }
     }
 }
@@ -148,7 +170,10 @@ fun TextView.viewSetTime(task: Task?) {
 @BindingAdapter("showLabel")
 fun TextView.showLabel(task: Task?) {
     task?.let {
-        if(task.date != null) text = "Horário"
+        if(task.date != null) {
+            text = resources.getText(R.string.lb_time)
+            contentDescription = resources.getText(R.string.lb_time)
+        }
     }
 }
 
