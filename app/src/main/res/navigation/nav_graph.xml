@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/OverviewFragment"
         android:name="com.airongomes.taskmanager.overview.OverviewFragment"
-        android:label="Gerenciador de Tarefas"
+        android:label="@string/taskManager"
         tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/action_overviewFragment_to_newTaskFragment"
@@ -16,7 +16,8 @@
             app:popUpTo="@id/OverviewFragment" />
         <action
             android:id="@+id/action_OverviewFragment_to_AboutFragment"
-            app:destination="@id/AboutFragment" />
+            app:destination="@id/AboutFragment"
+            app:popUpTo="@id/OverviewFragment"/>
         <action
             android:id="@+id/action_OverviewFragment_to_DetailFragment"
             app:destination="@id/DetailFragment"
@@ -25,7 +26,7 @@
     <fragment
         android:id="@+id/NewTaskFragment"
         android:name="com.airongomes.taskmanager.newTask.NewTaskFragment"
-        android:label="Nova Tarefa"
+        android:label="@string/newTask"
         tools:layout="@layout/fragment_new_task">
         <action
             android:id="@+id/action_NewTaskFragment_to_OverviewFragment"
@@ -35,13 +36,13 @@
     <fragment
         android:id="@+id/AboutFragment"
         android:name="com.airongomes.taskmanager.about.AboutFragment"
-        android:label="Sobre o App"
+        android:label="@string/about_app"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/DetailFragment"
         android:name="com.airongomes.taskmanager.detail.DetailFragment"
-        android:label="Detalhes da Tarefa"
-        tools:layout="@layout/fragment_detail" >
+        android:label="@string/taskDetails"
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="taskId"
             app:argType="long" />
@@ -57,7 +58,7 @@
     <fragment
         android:id="@+id/EditTaskFragment"
         android:name="com.airongomes.taskmanager.editTask.EditTaskFragment"
-        android:label="Editar Tarefa"
+        android:label="@string/editTask"
         tools:layout="@layout/fragment_edit_task">
         <argument
             android:name="taskId"

@@ -107,6 +107,7 @@
             android:checked="@{viewModel.allDay}"
             android:contentDescription="@string/checkbox_allDay"
             android:text="@string/lb_allDay"
+            app:enableCheckbox="@{viewModel.dateTask}"
             app:layout_constraintBottom_toBottomOf="@+id/edit_button_setTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit_button_setTime"

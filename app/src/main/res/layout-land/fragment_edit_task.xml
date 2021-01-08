@@ -107,6 +107,7 @@
             android:checked="@{viewModel.allDay}"
             android:contentDescription="@string/checkbox_allDay"
             android:text="@string/lb_allDay"
+            app:enableCheckbox="@{viewModel.dateTask}"
             app:layout_constraintBottom_toBottomOf="@+id/edit_button_setTime"
             app:layout_constraintStart_toEndOf="@+id/edit_button_setTime"
             app:layout_constraintTop_toTopOf="@+id/edit_button_setTime" />
@@ -115,6 +116,7 @@
             android:id="@+id/lb_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/lb_definePriority"
             android:text="@string/lb_definePriority"
             android:textSize="18sp"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Task Manager</string>
+
+    <string name="lb_button_add_newTask">Adicionar nova tarefa</string>
+    <string name="lb_definePriority">Definir Prioridade:</string>
+    <string name="lb_forecastDate">Data prevista:</string>
+    <string name="lb_withoutWork">Nenhuma tarefa por enquanto…</string>
+    <string name="lb_data">Data</string>
+    <string name="lb_time">Horário</string>
+    <string name="lb_allDay">Todo o dia</string>
+    <string name="lb_about_title">Obrigado por utilizar nosso App!</string>
+    <string name="lb_about_subtitle">Esperamos que possa ajuda-lo em seu dia a dia.</string>
+    <string name="lb_about_version">Esta é a versão: V1.0.\nEstaremos trazendo novidades em breve.</string>
+    <string name="lb_about_contact">Caso tenha alguma sugestão ou deseje relatar um problema, envie-nos uma mensagem:\nairon.gms@gmail.com</string>
+    <string name="lb_priority">Prioridade</string>
+
+    <string name="title_detail">Detalhes da tarefa</string>
+    <string name="title_newTask">Criar nova tarefa</string>
+
+    <string name="hint_title">Título:</string>
+    <string name="hint_description">Descrição:</string>
+
+    <string name="button_save">SALVAR</string>
+    <string name="button_defineDate">DATA</string>
+    <string name="button_defineTime">HORA</string>
+    <string name="button_confirm">CONFIRMAR</string>
+    <string name="button_cancel">CANCELAR</string>
+    <string name="button_delete">EXCLUIR</string>
+
+    <string name="low_priority">Baixa</string>
+    <string name="medium_priority">Média</string>
+    <string name="high_priority">Alta</string>
+
+    <string name="icon_tv">Imagem de televisão</string>
+    <string name="icon_newTask">Nova tarefa</string>
+    <string name="icon_edit">Editar tarefa</string>
+    <string name="title_editTask">Editar tarefa</string>
+    <string name="checkbox_allDay">CheckBox todo o dia</string>
+
+    <string name="filter_all">Todas</string>
+    <string name="filter_low">Baixa</string>
+    <string name="filter_medium">Média</string>
+    <string name="filter_high">Alta</string>
+
+    <string name="withoutDate">Não há data</string>
+    <string name="error_withoutTitle">Erro: Não é possível criar uma tarefa sem título.</string>
+    <string name="msg_taskSaved">Tarefa salva com sucesso.</string>
+    <string name="delete_all">Excluir todas as tarefas</string>
+    <string name="about">Sobre</string>
+    <string name="about_app">Sobre o App</string>
+    <string name="taskManager">Gerenciador de Tarefas</string>
+    <string name="taskDetails">Detalhes da Tarefa</string>
+    <string name="newTask">Nova Tarefa</string>
+    <string name="editTask">Editar Tarefa</string>
+</resources>

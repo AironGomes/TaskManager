@@ -40,17 +40,6 @@
             app:priorityIcon="@{viewModel.task}"
             tools:srcCompat="@drawable/priority_icon_low"/>
 
-        <ImageView
-            android:id="@+id/editable_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.editTask()}"
-            android:contentDescription="@string/icon_edit"
-            app:layout_constraintBottom_toBottomOf="@+id/lb_detailTask"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/editable_icon" />
-
         <TextView
             android:id="@+id/view_title"
             android:layout_width="match_parent"

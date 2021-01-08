@@ -24,6 +24,6 @@
         android:textColor="#787575"
         android:textSize="24sp"
         android:text="@string/low_priority"
-        tools:text="Baixa"/>
+        tools:text="@string/low_priority"/>
 
 </LinearLayout>

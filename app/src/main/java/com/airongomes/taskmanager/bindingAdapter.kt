@@ -1,6 +1,8 @@
 package com.airongomes.taskmanager
 
+import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -177,4 +179,9 @@ fun TextView.showLabel(task: Task?) {
     }
 }
 
-/** ------------------------------------------------------------------------------ **/
+/** -------------------- Edit Task  ------------------------------------------------- **/
+
+@BindingAdapter("enableCheckbox")
+fun CheckBox.enableCheckbox(cal: Calendar?) {
+    isEnabled = cal != null
+}
