@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.airongomes.taskmanager.detail.DetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        tools:context=".detail.DetailFragment">
+
+        <TextView
+            android:id="@+id/lb_detailTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:text="@string/title_detail"
+            android:contentDescription="@string/title_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/priority_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/lb_detailTask"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:priorityIconTablet="@{viewModel.task}"
+            tools:srcCompat="@drawable/priority_icon_big_low"/>
+
+        <TextView
+            android:id="@+id/view_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="32sp"
+            android:textColor="@color/primaryDarkColor"
+            android:singleLine="true"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="@drawable/shape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lb_detailTask"
+            app:titleDetail="@{viewModel.task}"
+            tools:text="Este e o titulo 01" />
+
+        <TextView
+            android:id="@+id/view_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="vertical"
+            android:padding="8dp"
+            android:textSize="24sp"
+            android:lines="5"
+            android:background="@drawable/shape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_title"
+            app:descriptionDetail="@{viewModel.task}"
+            tools:text="Esta e a descricao do item acima."/>
+
+        <TextView
+            android:id="@+id/lb_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/lb_data"
+            android:text="@string/lb_data"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_description"
+            tools:text="Data" />
+
+        <TextView
+            android:id="@+id/view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryLightColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lb_date"
+            app:viewSetDate="@{viewModel.task}"
+            tools:text="Não há data" />
+
+        <TextView
+            android:id="@+id/lb_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/lb_time"
+            android:textSize="24sp"
+            android:layout_marginStart="48dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/lb_date"
+            app:layout_constraintStart_toEndOf="@+id/view_date"
+            app:showLabel="@{viewModel.task}"
+            tools:text="Horário" />
+
+        <TextView
+            android:id="@+id/view_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondaryColor"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/lb_time"
+            app:layout_constraintTop_toBottomOf="@+id/lb_time"
+            app:viewSetTime="@{viewModel.task}"
+            tools:text="Todo o dia" />
+
+        <Button
+            android:id="@+id/button_cancel_detail"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/button_cancel"
+            android:onClick="@{() -> viewModel.closeDetailFragment()}"
+            android:text="@string/button_cancel"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_delete_detail" />
+
+        <Button
+            android:id="@+id/button_delete_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_delete"
+            android:text="@string/button_delete"
+            android:onClick="@{() -> viewModel.deleteTask()}"
+            android:textSize="28sp"
+            app:backgroundTint="@color/secondaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

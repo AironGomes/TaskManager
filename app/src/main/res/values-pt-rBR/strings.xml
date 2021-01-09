@@ -53,4 +53,7 @@
     <string name="taskDetails">Detalhes da Tarefa</string>
     <string name="newTask">Nova Tarefa</string>
     <string name="editTask">Editar Tarefa</string>
+    <string name="today">Hoje</string>
+    <string name="tomorrow">Amanhã</string>
+    <string name="yesterday">Ontem</string>
 </resources>

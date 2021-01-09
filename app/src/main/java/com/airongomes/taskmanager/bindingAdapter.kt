@@ -1,5 +1,6 @@
 package com.airongomes.taskmanager
 
+import android.text.format.DateUtils
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -50,10 +51,23 @@ fun Button.buttonSetTime(cal: Calendar?) {
 fun TextView.setDate(task: Task?) {
     task?.let {
         if(task.date != null){
-            val myFormat = "dd/MM"
-            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-            text = sdf.format(task.date)
-            contentDescription = sdf.format(task.date)
+            when {
+                DateUtils.isToday(task.date!!) -> {
+                    text = resources.getText(R.string.today)
+                }
+                DateUtils.isToday(task.date!! + DateUtils.DAY_IN_MILLIS) -> {
+                    text = resources.getText(R.string.yesterday)
+                }
+                DateUtils.isToday(task.date!! - DateUtils.DAY_IN_MILLIS) -> {
+                    text = resources.getText(R.string.tomorrow)
+                }
+                else -> {
+                    val myFormat = "dd/MM"
+                    val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+                    text = sdf.format(task.date)
+                    contentDescription = sdf.format(task.date)
+                }
+            }
         }
         else{
             text = ""
@@ -102,11 +116,27 @@ fun ImageView.priorityIcon(task: Task?) {
                 contentDescription = resources.getText(R.string.high_priority)
             }
         }
-//        setImageResource(when(task.priority){
-//            0 -> R.drawable.priority_icon_low
-//            1 -> R.drawable.priority_icon_medium
-//            else -> R.drawable.priority_icon_high
-//        })
+    }
+}
+
+// Set image in priority_icon from Task Detail && iconPriority from ListItem layout in Tablet Layout
+@BindingAdapter("priorityIconTablet")
+fun ImageView.priorityIconTablet(task: Task?) {
+    task?.let {
+        when(task.priority){
+            0 -> {
+                setImageResource(R.drawable.priority_icon_big_low)
+                contentDescription = resources.getText(R.string.low_priority)
+            }
+            1 -> {
+                setImageResource(R.drawable.priority_icon_big_medium)
+                contentDescription = resources.getText(R.string.medium_priority)
+            }
+            else -> {
+                setImageResource(R.drawable.priority_icon_big_high)
+                contentDescription = resources.getText(R.string.high_priority)
+            }
+        }
     }
 }
 
@@ -143,7 +173,22 @@ fun TextView.viewSetDate(task: Task?) {
         else {
             val myFormat = "EEE, d MMM yyy"
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-            text = sdf.format(task.date)
+            var dateString = ""
+            when {
+                DateUtils.isToday(task.date!!) -> {
+                    dateString = sdf.format(task.date) + " (" + resources.getText(R.string.today) + ")"
+                }
+                DateUtils.isToday(task.date!! + DateUtils.DAY_IN_MILLIS) -> {
+                    dateString = sdf.format(task.date) + " (" + resources.getText(R.string.yesterday) + ")"
+                }
+                DateUtils.isToday(task.date!! - DateUtils.DAY_IN_MILLIS) -> {
+                    dateString = sdf.format(task.date) + " (" + resources.getText(R.string.tomorrow) + ")"
+                }
+                else -> {
+                    dateString = sdf.format(task.date)
+                }
+            }
+            text = dateString
             contentDescription = sdf.format(task.date)
         }
     }

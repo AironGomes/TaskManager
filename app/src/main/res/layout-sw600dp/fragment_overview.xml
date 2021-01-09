@@ -22,10 +22,10 @@
                 android:id="@+id/lb_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_margin="16dp"
                 android:contentDescription="@string/lb_priority"
                 android:text="@string/lb_priority"
-                android:textSize="20sp"
+                android:textSize="36sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -34,7 +34,7 @@
                 android:id="@+id/horizontal_scroll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +44,7 @@
                     android:id="@+id/chip_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     app:singleLine="true"
                     android:tag="111"
                     app:selectionRequired="true"
@@ -52,38 +53,42 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_all"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:contentDescription="@string/filter_all"
                         android:text="@string/filter_all"
                         android:tag="Todos"
                         android:checked="true"
+                        android:textAppearance="@style/chipTextAppearance"
                         style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_low_priority"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:tag="Baixa"
                         android:contentDescription="@string/filter_low"
-                        android:text="@string/filter_low" />
+                        android:text="@string/filter_low"
+                        android:textAppearance="@style/chipTextAppearance"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_medium_priority"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:contentDescription="@string/filter_medium"
                         android:text="@string/filter_medium"
                         android:tag="Média"
+                        android:textAppearance="@style/chipTextAppearance"
                         style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_high_priority"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:contentDescription="@string/filter_high"
                         android:text="@string/filter_high"
                         android:tag="Alta"
+                        android:textAppearance="@style/chipTextAppearance"
                         style="@style/Widget.MaterialComponents.Chip.Choice"/>
                 </com.google.android.material.chip.ChipGroup>
 
@@ -104,18 +109,19 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll">
+                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
+                app:layout_constraintVertical_bias="0.0">
             </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/text_withoutWork"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="72dp"
                 android:contentDescription="@string/lb_withoutWork"
                 android:text="@string/lb_withoutWork"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="48sp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,14 +132,15 @@
                 android:id="@+id/image_withoutWork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:visibility="gone"
                 android:contentDescription="@string/icon_tv"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_withoutWork"
-                app:srcCompat="@drawable/no_task_icon"
-                tools:visibility="gone"/>
+                app:srcCompat="@drawable/no_task_icon_big"
+                tools:visibility="gone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             android:contentDescription="@string/icon_newTask"
             android:onClick="@{() -> viewModel.createNewTask()}"
             app:srcCompat="@drawable/fab_add"/>

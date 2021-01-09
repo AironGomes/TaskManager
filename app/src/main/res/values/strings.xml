@@ -7,6 +7,9 @@
     <string name="lb_withoutWork">No task yet…</string>
     <string name="lb_data">Date</string>
     <string name="lb_time">Time</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="yesterday">Yesterday</string>
     <string name="lb_allDay">All day</string>
     <string name="lb_about_title">Thank you for using our App!</string>
     <string name="lb_about_subtitle">We hope this can help you in your day to day.</string>

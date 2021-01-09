@@ -134,6 +134,8 @@ class EditTaskViewModel(
                 dateTask.value?.get(Calendar.DAY_OF_MONTH)?.let { calendar.set(Calendar.DAY_OF_MONTH, it) }
                 timeTask.value?.get(Calendar.HOUR_OF_DAY)?.let { calendar.set(Calendar.HOUR_OF_DAY, it)}
                 timeTask.value?.get(Calendar.MINUTE)?.let { calendar.set(Calendar.MINUTE, it)}
+                timeTask.value?.get(Calendar.SECOND)?.let { calendar.set(Calendar.SECOND, it)}
+                timeTask.value?.get(Calendar.MILLISECOND)?.let { calendar.set(Calendar.MILLISECOND, it)}
                 calendar.set(Calendar.SECOND, 0)
                 _dateTask.value = calendar
             }

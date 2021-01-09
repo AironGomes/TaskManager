@@ -21,7 +21,7 @@ interface TaskListDao {
     @Query("DELETE from taskList_table")
     suspend fun deleteAllTasks()
 
-    @Query("SELECT * from taskList_table ORDER BY priority DESC, date is null, date ASC, allDay ASC")
+    @Query("SELECT * from taskList_table ORDER BY date is null, date ASC, priority DESC, allDay ASC")
     fun getAllTasks(): LiveData<List<Task>>
 
     @Query("SELECT * from taskList_table Where priority = 0 ORDER BY date is null, date ASC, allDay ASC")
