@@ -12,9 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:actionModeBackground">?attr/colorPrimaryVariant</item>
+        <item name="android:actionModeSplitBackground">?attr/colorPrimaryVariant</item>
     </style>
 
+    <!-- Chip Style -->
     <style name="chipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">28sp</item>
     </style>
+
 </resources>

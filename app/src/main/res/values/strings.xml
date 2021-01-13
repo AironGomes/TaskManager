@@ -55,5 +55,8 @@
     <string name="taskDetails">Task Details</string>
     <string name="newTask">New Task</string>
     <string name="editTask">Edit Task</string>
+    <string name="information">Information</string>
+    <string name="delete">Delete</string>
+    <string name="lb_selected">selected</string>
 
 </resources>

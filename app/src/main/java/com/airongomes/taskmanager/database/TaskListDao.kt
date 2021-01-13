@@ -9,8 +9,8 @@ interface TaskListDao {
     @Insert
     suspend fun insert(task: Task)
 
-    @Delete
-    suspend fun delete(task: Task)
+    @Query("DELETE from taskList_table WHERE taskId = :taskId ")
+    suspend fun deleteItem(taskId: Long)
 
     @Update
     suspend fun update(task: Task)

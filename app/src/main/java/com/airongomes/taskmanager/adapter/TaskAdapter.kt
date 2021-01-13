@@ -1,7 +1,10 @@
 package com.airongomes.taskmanager.adapter
 
+import android.view.ActionMode
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.airongomes.taskmanager.database.Task
@@ -10,7 +13,13 @@ import com.airongomes.taskmanager.databinding.ListItemBinding
 /**
  * This class create the adapter to be used with the recyclerview
  */
-class TaskAdapter(val clickListener: TaskClickListener): androidx.recyclerview.widget.ListAdapter<Task, TaskViewHolder>(TaskDiffCalback()) {
+class TaskAdapter(private val clickListener: TaskClickListener): androidx.recyclerview.widget.ListAdapter<Task, TaskViewHolder>(TaskDiffCalback()) {
+
+    var tracker: SelectionTracker<Long>? = null
+
+    init {
+        setHasStableIds(true)
+    }
 
     /**
      * Inflate the ListItemView fragment and return the TaskViewHolder
@@ -24,18 +33,23 @@ class TaskAdapter(val clickListener: TaskClickListener): androidx.recyclerview.w
      */
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener)
+        tracker?.let {
+            holder.bind(item, clickListener, it.isSelected(item.taskId))
+        }
+        //holder.bind(item, clickListener)
     }
+
+    override fun getItemId(position: Int): Long = getItem(position).taskId
 }
 
 /**
  * RecyclerViewHolder is responsible to manage the properties from onBindingVIewHolder and onCreateViewHolder
  */
 class TaskViewHolder private constructor(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: Task, clickListener: TaskClickListener) {
-        //binding.root.setBackgroundColor(Color.parseColor("#6DC182"))
+    fun bind(item: Task, clickListener: TaskClickListener, isActivated: Boolean = false) {
         binding.task = item
         binding.clickListener = clickListener
+        itemView.isActivated = isActivated
         binding.executePendingBindings()
     }
 
@@ -46,6 +60,12 @@ class TaskViewHolder private constructor(val binding: ListItemBinding) : Recycle
             return TaskViewHolder(binding)
         }
     }
+
+    fun getItemDetails() : ItemDetailsLookup.ItemDetails<Long> =
+        object: ItemDetailsLookup.ItemDetails<Long>() {
+            override fun getPosition(): Int = adapterPosition
+            override fun getSelectionKey(): Long = itemId
+        }
 }
 
 /**

@@ -56,4 +56,7 @@
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
     <string name="yesterday">Ontem</string>
+    <string name="information">Informação</string>
+    <string name="delete">Excluir</string>
+    <string name="lb_selected">selecionado(s)</string>
 </resources>

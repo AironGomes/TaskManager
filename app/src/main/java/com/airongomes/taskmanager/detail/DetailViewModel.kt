@@ -45,7 +45,7 @@ class DetailViewModel(
     fun deleteTask() {
         viewModelScope.launch {
             task.value?.let {
-                database.delete(it) }
+                database.deleteItem(it.taskId) }
             closeDetailFragment()
         }
     }
