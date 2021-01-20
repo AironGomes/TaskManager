@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
-                android:lines="5"
+                android:lines="4"
                 android:maxLength="250"
                 android:textSize="24sp"
                 app:descriptionDetail="@{viewModel.task}"
@@ -111,7 +111,6 @@
             android:textSize="24sp"
             app:enableCheckbox="@{viewModel.dateTask}"
             app:layout_constraintBottom_toBottomOf="@+id/edit_button_setTime"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit_button_setTime"
             app:layout_constraintTop_toTopOf="@+id/edit_button_setTime" />
 
@@ -119,30 +118,28 @@
             android:id="@+id/lb_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:textStyle="bold"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/lb_definePriority"
             android:text="@string/lb_definePriority"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_button_setDate"/>
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_button_setDate"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Spinner
             android:id="@+id/spinner_editTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toBottomOf="@+id/lb_priority"
-            app:layout_constraintStart_toEndOf="@+id/lb_priority"
-            app:layout_constraintTop_toTopOf="@+id/lb_priority"
+            app:layout_constraintEnd_toEndOf="@+id/lb_priority"
+            app:layout_constraintStart_toStartOf="@+id/lb_priority"
+            app:layout_constraintTop_toBottomOf="@+id/lb_priority"
             tools:listitem="@layout/custom_layout_priority" />
 
         <Button
             android:id="@+id/button_save_editTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:contentDescription="@string/button_save"
             android:onClick="@{() -> viewModel.updateTask(editConstraintLayout)}"
             android:text="@string/button_save"

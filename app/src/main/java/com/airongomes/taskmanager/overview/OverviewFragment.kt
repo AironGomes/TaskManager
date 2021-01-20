@@ -27,7 +27,7 @@ class OverviewFragment : Fragment() {
     // Create an viewModel variable (Enable the viewModel be accessible from outside of onCreateView)
     private lateinit var viewModel: OverviewViewModel
     private lateinit var binding: FragmentOverviewBinding
-    private lateinit var tracker: SelectionTracker<Long>
+    private var tracker: SelectionTracker<Long>? = null
     private var listOfKeys = mutableListOf<Long>()
     private var actionMode: ActionMode? = null
 
@@ -93,13 +93,13 @@ class OverviewFragment : Fragment() {
         adapter.tracker = tracker
 
         // Observe when item is selected
-        tracker.addObserver(
+        tracker?.addObserver(
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
-                    if (tracker.hasSelection()) {
+                    if (tracker?.hasSelection() == true) {
                         binding.fabNewTask.visibility = View.GONE
-                        listOfKeys = tracker.selection.toMutableList()
+                        listOfKeys = tracker!!.selection.toMutableList()
                         updateActionMode()
 
                     } else {
@@ -113,7 +113,7 @@ class OverviewFragment : Fragment() {
         // Observe deletedTasks LiveData to use clear selection
         viewModel.deletedTasks.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-                tracker.clearSelection()
+                tracker?.clearSelection()
                 viewModel.selectionCleared()
             }
 
@@ -121,7 +121,7 @@ class OverviewFragment : Fragment() {
 
         // Check Change Listener from ChipGroup
         binding.chipGroup.setOnCheckedChangeListener{ group, checkedId ->
-            tracker.clearSelection()
+            tracker?.clearSelection()
             when(checkedId) {
                 binding.chipLowPriority.id -> viewModel.updateFilterPriority("low")
                 binding.chipMediumPriority.id -> viewModel.updateFilterPriority("medium")
@@ -169,10 +169,10 @@ class OverviewFragment : Fragment() {
 
         // Restores the tracker states
         if( savedInstanceState != null ){
-            tracker.onRestoreInstanceState(savedInstanceState)
-            if (tracker.hasSelection()) {
+            tracker?.onRestoreInstanceState(savedInstanceState)
+            if (tracker?.hasSelection() == true) {
                 binding.fabNewTask.visibility = View.GONE
-                listOfKeys = tracker.selection.toMutableList()
+                listOfKeys = tracker!!.selection.toMutableList()
                 updateActionMode()
             }
         }
@@ -184,8 +184,8 @@ class OverviewFragment : Fragment() {
      */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if(tracker.hasSelection()){
-            tracker.onSaveInstanceState(outState)
+        if(tracker?.hasSelection() == true){
+            tracker?.onSaveInstanceState(outState)
         }
     }
 
@@ -198,7 +198,7 @@ class OverviewFragment : Fragment() {
         if(actionMode == null){
             actionMode = activity?.startActionMode(actionModeCallback)
         }
-        actionMode?.title = "${tracker.selection.size()} ${getText(R.string.lb_selected)}"
+        actionMode?.title = "${tracker?.selection?.size()} ${getText(R.string.lb_selected)}"
     }
 
     /**
@@ -275,7 +275,7 @@ class OverviewFragment : Fragment() {
          */
         override fun onDestroyActionMode(mode: ActionMode?) {
             actionMode = null
-            tracker.clearSelection()
+            tracker?.clearSelection()
         }
 
     }

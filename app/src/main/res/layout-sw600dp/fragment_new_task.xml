@@ -13,8 +13,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_margin="8dp"
         android:focusableInTouchMode="true"
         android:clickable="true"
         android:focusable="true">
@@ -135,27 +134,27 @@
             android:id="@+id/button_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_margin="8dp"
             android:contentDescription="@string/button_confirm"
             android:onClick="@{() -> viewModel.saveTask(constraintLayout)}"
             android:text="@string/button_confirm"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_cancel" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_cancel"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:contentDescription="@string/button_cancel"
             android:onClick="@{() -> viewModel.cancelTask()}"
             android:text="@string/button_cancel"
             android:textColor="@color/secondaryColor"
             android:textSize="28sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_ok"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/button_ok" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
