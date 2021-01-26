@@ -92,7 +92,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lb_date"
             app:viewSetDate="@{viewModel.task}"
-            tools:text="Não há data" />
+            tools:text="There is no date" />
 
         <TextView
             android:id="@+id/lb_time"
@@ -116,7 +116,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lb_time"
             app:viewSetTime="@{viewModel.task}"
-            tools:text="Todo o dia" />
+            tools:text="All day" />
 
         <Button
             android:id="@+id/button_cancel_detail"

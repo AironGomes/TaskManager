@@ -27,4 +27,5 @@
     <color name="high_priority">#C14D58</color>
     <color name="gray">#E5E5E5</color>
     <color name="highlight">#F2F2F2</color>
+    <color name="item_disabled">#61000000</color>
 </resources>

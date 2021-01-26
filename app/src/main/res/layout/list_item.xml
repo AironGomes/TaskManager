@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="75dp"/>
+                app:layout_constraintGuide_end="90dp"/>
 
             <TextView
                 android:id="@+id/item_title"
@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="@{task.title}"
                 android:contentDescription="@{task.title}"
@@ -56,7 +57,7 @@
                 android:text="@{task.description}"
                 android:textAlignment="textStart"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="@+id/item_title"
                 app:layout_constraintStart_toStartOf="@+id/item_title"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
                 tools:text="This is the description of the first item." />
@@ -65,16 +66,17 @@
                 android:id="@+id/item_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/roboto"
                 android:textAlignment="center"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/guideline"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
                 app:setDate="@{task}"
-                tools:text="01/01" />
+                tools:text="01/01/2021" />
 
             <TextView
                 android:id="@+id/item_time"

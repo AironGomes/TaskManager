@@ -1,17 +1,19 @@
-package com.airongomes.taskmanager
+package com.airongomes.taskmanager.util
 
-import android.location.Location
+import android.os.Build
+import android.text.format.DateFormat.getDateFormat
 import android.text.format.DateUtils
-import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.airongomes.taskmanager.R
 import com.airongomes.taskmanager.database.Task
-import com.google.android.material.textfield.TextInputEditText
-import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 /** -------------------- New Task & Edit Task -------------------------------------- **/
@@ -20,10 +22,10 @@ import java.util.*
 @BindingAdapter("buttonSetDate")
 fun Button.buttonSetDate(cal: Calendar?) {
     cal?.let {
-        val myFormat = "dd/MM/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-        text = sdf.format(cal.time)
-        contentDescription = sdf.format(cal.time)
+        val dateFormatted = formatDateStyleShort(it, context)
+        text = dateFormatted
+        contentDescription = dateFormatted
+
     }
     if(cal == null) {
         text = resources.getText(R.string.button_defineDate)
@@ -35,10 +37,9 @@ fun Button.buttonSetDate(cal: Calendar?) {
 @BindingAdapter("buttonSetTime")
 fun Button.buttonSetTime(cal: Calendar?) {
     cal?.let {
-        val myFormat = "HH:mm"
-        val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-        text = sdf.format(cal.time)
-        contentDescription = sdf.format(cal.time)
+        val timeFormatted = formatTime(it, context)
+        text = timeFormatted
+        contentDescription = timeFormatted
     }
     if(cal == null) {
         text = resources.getText(R.string.button_defineTime)
@@ -52,22 +53,24 @@ fun Button.buttonSetTime(cal: Calendar?) {
 @BindingAdapter("setDate")
 fun TextView.setDate(task: Task?) {
     task?.let {
-        if(task.date != null){
+        if(it.date != null){
             when {
-                DateUtils.isToday(task.date!!) -> {
+                DateUtils.isToday(it.date!!) -> {
                     text = resources.getText(R.string.today)
                 }
-                DateUtils.isToday(task.date!! + DateUtils.DAY_IN_MILLIS) -> {
+                DateUtils.isToday(it.date!! + DateUtils.DAY_IN_MILLIS) -> {
                     text = resources.getText(R.string.yesterday)
                 }
-                DateUtils.isToday(task.date!! - DateUtils.DAY_IN_MILLIS) -> {
+                DateUtils.isToday(it.date!! - DateUtils.DAY_IN_MILLIS) -> {
                     text = resources.getText(R.string.tomorrow)
                 }
                 else -> {
-                    val myFormat = "dd/MM"
-                    val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-                    text = sdf.format(task.date)
-                    contentDescription = sdf.format(task.date)
+                    val calendar = Calendar.getInstance()
+                    calendar.time = Date(it.date!!)
+                    val dateFormatted = formatDateStyleShort(calendar, context)
+                    text = dateFormatted
+                    contentDescription = dateFormatted
+
                 }
             }
         }
@@ -82,11 +85,11 @@ fun TextView.setDate(task: Task?) {
 fun TextView.setTime(task: Task?) {
     task?.let {
         if(task.date != null && !task.allDay){
-            //val myFormat = "hh:mm a"
-            val myFormat = "HH:mm"
-            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-            text = sdf.format(task.date)
-            contentDescription = sdf.format(task.date)
+            val calendar = Calendar.getInstance()
+            calendar.time = Date(it.date!!)
+            val timeFormatted = formatTime(calendar, context)
+            text = timeFormatted
+            contentDescription = timeFormatted
         }
         else if(task.date != null && task.allDay){
             text = resources.getText(R.string.lb_allDay)
@@ -173,25 +176,26 @@ fun TextView.viewSetDate(task: Task?) {
             contentDescription = resources.getText(R.string.withoutDate)
         }
         else {
-            val myFormat = "EEE, d MMM yyy"
-            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
+            val calendar = Calendar.getInstance()
+            calendar.time = Date(it.date!!)
+            val dateFormatted = formatDateStyleLong(calendar, context)
             var dateString = ""
-            when {
+            dateString = when {
                 DateUtils.isToday(task.date!!) -> {
-                    dateString = sdf.format(task.date) + " (" + resources.getText(R.string.today) + ")"
+                    context.getString(R.string.today)
                 }
                 DateUtils.isToday(task.date!! + DateUtils.DAY_IN_MILLIS) -> {
-                    dateString = sdf.format(task.date) + " (" + resources.getText(R.string.yesterday) + ")"
+                    context.getString(R.string.yesterday)
                 }
                 DateUtils.isToday(task.date!! - DateUtils.DAY_IN_MILLIS) -> {
-                    dateString = sdf.format(task.date) + " (" + resources.getText(R.string.tomorrow) + ")"
+                    context.getString(R.string.tomorrow)
                 }
                 else -> {
-                    dateString = sdf.format(task.date)
+                    dateFormatted
                 }
             }
             text = dateString
-            contentDescription = sdf.format(task.date)
+            contentDescription = dateFormatted
         }
     }
 
@@ -207,10 +211,11 @@ fun TextView.viewSetTime(task: Task?) {
             contentDescription = resources.getText(R.string.lb_allDay)
         }
         else if(task.date != null && !task.allDay) {
-            val myFormat = "hh:mm aaa"
-            val sdf = SimpleDateFormat(myFormat, Locale.getDefault()) //Locale.US
-            text = sdf.format(task.date)
-            contentDescription = sdf.format(task.date)
+            val calendar = Calendar.getInstance()
+            calendar.time = Date(it.date!!)
+            val timeFormatted = formatTime(calendar, context)
+            text = timeFormatted
+            contentDescription = timeFormatted
         }
     }
 }

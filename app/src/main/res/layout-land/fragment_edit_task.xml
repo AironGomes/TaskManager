@@ -84,7 +84,7 @@
             app:buttonSetDate="@{viewModel.dateTask}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_description"
-            tools:text="23/01/2021" />
+            tools:text="DATE" />
 
         <Button
             android:id="@+id/edit_button_setTime"
@@ -97,7 +97,7 @@
             app:buttonSetTime="@{viewModel.timeTask}"
             app:layout_constraintBaseline_toBaselineOf="@+id/edit_button_setDate"
             app:layout_constraintStart_toEndOf="@+id/edit_button_setDate"
-            tools:text="HORA" />
+            tools:text="TIME" />
 
         <CheckBox
             android:id="@+id/checkbox_todoODia_editTask"

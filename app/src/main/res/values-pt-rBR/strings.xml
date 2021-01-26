@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Task Manager</string>
 
     <string name="lb_button_add_newTask">Adicionar nova tarefa</string>
     <string name="lb_definePriority">Definir Prioridade:</string>
@@ -59,4 +58,7 @@
     <string name="information">Informação</string>
     <string name="delete">Excluir</string>
     <string name="lb_selected">selecionado(s)</string>
+    <string name="task_notification_title">Notificação de Tarefa</string>
+    <string name="dialog_delete_all_tasks">Você tem certeza que deseja excluir todas as tarefas?</string>
+    <string name="button_yes">Sim</string>
 </resources>

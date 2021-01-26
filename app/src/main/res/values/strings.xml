@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Task Manager</string>
+    <string name="app_name" translatable="false">Task Manager</string>
 
     <string name="lb_button_add_newTask">New Task</string>
     <string name="lb_definePriority">Define Priority:</string>
@@ -58,5 +58,10 @@
     <string name="information">Information</string>
     <string name="delete">Delete</string>
     <string name="lb_selected">selected</string>
+    <string name="task_notification_channel_id" translatable="false">task_notification_channel</string>
+    <string name="task_notification_title">Task Notification</string>
+    <string name="task_notification_description" translatable="false">Task Notification</string>
+    <string name="dialog_delete_all_tasks">Are you sure you want to delete all tasks?</string>
+    <string name="button_yes">Yes</string>
 
 </resources>

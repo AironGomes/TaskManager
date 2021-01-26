@@ -19,6 +19,9 @@ import com.airongomes.taskmanager.database.TaskListDatabase
 import com.airongomes.taskmanager.databinding.FragmentEditTaskBinding
 import com.airongomes.taskmanager.spinnerAdapter.PriorityModel
 import com.airongomes.taskmanager.spinnerAdapter.SpinnerPriorityAdapter
+import com.airongomes.taskmanager.util.datePickerDialog
+import com.airongomes.taskmanager.util.hideKeyboard
+import com.airongomes.taskmanager.util.timePickerDialog
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -127,7 +130,7 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.editButtonSetTime.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.material_on_background_disabled))
+                        R.color.item_disabled))
                 viewModel.setAllDayToTrue()
             }
             else {

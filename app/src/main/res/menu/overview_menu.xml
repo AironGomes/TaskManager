@@ -9,7 +9,7 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/about"
+        android:id="@+id/AboutFragment"
         android:title="@string/about"
         android:orderInCategory="100"
         app:showAsAction="never"/>

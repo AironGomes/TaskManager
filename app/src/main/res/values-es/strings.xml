@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Task Manager</string>
 
     <string name="lb_button_add_newTask">Agregar nueva tarea</string>
     <string name="lb_definePriority">Fijar Prioridad:</string>
@@ -59,4 +58,7 @@
     <string name="information">Información</string>
     <string name="delete">Eliminar</string>
     <string name="lb_selected">seleccionado(s)</string>
+    <string name="task_notification_title">Notificación de Tarea</string>
+    <string name="dialog_delete_all_tasks">¿Estás seguro de que quieres borrar todas las tareas?</string>
+    <string name="button_yes">Sí</string>
 </resources>

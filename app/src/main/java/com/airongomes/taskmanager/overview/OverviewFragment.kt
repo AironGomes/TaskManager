@@ -1,15 +1,19 @@
 package com.airongomes.taskmanager.overview
 
 import OverviewViewMolderFactory
-import android.app.ActionBar
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.Toolbar
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
@@ -39,12 +43,12 @@ class OverviewFragment : Fragment() {
      * @param savedInstanceState
      */
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_overview, container, false
+                inflater, R.layout.fragment_overview, container, false
         )
 
         // Create a DataSource of the Database
@@ -72,43 +76,43 @@ class OverviewFragment : Fragment() {
         binding.recyclerview.layoutManager = layoutManager
         // Create an ItemDecoration of RecyclerView (Divider)
         val mDividerItemDecoration = DividerItemDecoration(
-            binding.recyclerview.context,
-            layoutManager.orientation
+                binding.recyclerview.context,
+                layoutManager.orientation
         )
         // Associate the RecyclerView with the ItemDecoration
         binding.recyclerview.addItemDecoration(mDividerItemDecoration)
 
         // Allow select items in RecyclerView
         tracker = SelectionTracker.Builder(
-            "mySelection",
-            binding.recyclerview,
-            //StableIdKeyProvider(binding.recyclerview),
-            MyItemKeyProvider(binding.recyclerview),
-            MyDetailsLookup(binding.recyclerview),
-            StorageStrategy.createLongStorage()
+                "mySelection",
+                binding.recyclerview,
+                //StableIdKeyProvider(binding.recyclerview),
+                MyItemKeyProvider(binding.recyclerview),
+                MyDetailsLookup(binding.recyclerview),
+                StorageStrategy.createLongStorage()
         ).withSelectionPredicate(
-            SelectionPredicates.createSelectAnything()
+                SelectionPredicates.createSelectAnything()
         ).build()
 
         adapter.tracker = tracker
 
         // Observe when item is selected
         tracker?.addObserver(
-            object : SelectionTracker.SelectionObserver<Long>() {
-                override fun onSelectionChanged() {
-                    super.onSelectionChanged()
-                    if (tracker?.hasSelection() == true) {
-                        binding.fabNewTask.visibility = View.GONE
-                        listOfKeys = tracker!!.selection.toMutableList()
-                        updateActionMode()
+                object : SelectionTracker.SelectionObserver<Long>() {
+                    override fun onSelectionChanged() {
+                        super.onSelectionChanged()
+                        if (tracker?.hasSelection() == true) {
+                            binding.fabNewTask.visibility = View.GONE
+                            listOfKeys = tracker!!.selection.toMutableList()
+                            updateActionMode()
 
-                    } else {
-                        binding.fabNewTask.visibility = View.VISIBLE
-                        listOfKeys.clear()
-                        actionMode?.finish()
+                        } else {
+                            binding.fabNewTask.visibility = View.VISIBLE
+                            listOfKeys.clear()
+                            actionMode?.finish()
+                        }
                     }
                 }
-            }
         )
         // Observe deletedTasks LiveData to use clear selection
         viewModel.deletedTasks.observe(viewLifecycleOwner, Observer {
@@ -134,7 +138,7 @@ class OverviewFragment : Fragment() {
         viewModel.createNewTask.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 this.findNavController().navigate(
-                    OverviewFragmentDirections.actionOverviewFragmentToNewTaskFragment()
+                        OverviewFragmentDirections.actionOverviewFragmentToNewTaskFragment()
                 )
                 viewModel.createNewTaskStarted()
             }
@@ -158,7 +162,7 @@ class OverviewFragment : Fragment() {
         viewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { taskId ->
             taskId?.let {
                 this.findNavController().navigate(
-                    OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(taskId)
+                        OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(taskId)
                 )
                 viewModel.onTaskDetailNavigated()
             }
@@ -205,27 +209,33 @@ class OverviewFragment : Fragment() {
      * Inflate the OptionsMenu
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.overview_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overview_menu, menu)
     }
 
     /**
      * Called when the items from OptionsMenu is pressed
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            // Clear the database
-            R.id.deleteAll -> {
-                viewModel.deleteAllFromDatabase()
-            }
-            // Navigate to AboutFragment
-            R.id.about -> {
-                this.findNavController().navigate(
-                    OverviewFragmentDirections.actionOverviewFragmentToAboutFragment()
-                )
-            }
+        if (item.itemId == R.id.deleteAll) {
+            // Create Alert Dialog
+            val builder = AlertDialog.Builder(context)
+            builder.setMessage(R.string.dialog_delete_all_tasks)
+            builder.setPositiveButton(getString(R.string.button_yes),
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // Clear database
+                        viewModel.deleteAllFromDatabase()
+                    })
+            builder.setNegativeButton(R.string.button_cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        Log.i("TAG", "Cancel button clicked")
+                    })
+            builder.create().show()
         }
-        return true
+        // Navigate to the fragment it's id is compatible with item.id
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                    || super.onOptionsItemSelected(item)
+
     }
 
 
@@ -257,7 +267,7 @@ class OverviewFragment : Fragment() {
                 // Navigate to DetailFragment
                 R.id.action_info -> {
                     this@OverviewFragment.findNavController().navigate(
-                        OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(listOfKeys[0]))
+                            OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(listOfKeys[0]))
                     actionMode?.finish()
                     true
                 }

@@ -1,18 +1,34 @@
 package com.airongomes.taskmanager.newTask
 
+import android.app.AlarmManager
+import android.app.Application
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.SystemClock
+import android.util.Log
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.core.app.AlarmManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.*
 import com.airongomes.taskmanager.database.Task
 import com.airongomes.taskmanager.database.TaskListDao
+import com.airongomes.taskmanager.notification.AlarmReceiver
+import com.airongomes.taskmanager.notification.sendNotification
+import com.airongomes.taskmanager.util.formatDateStyleLong
+import com.airongomes.taskmanager.util.formatDateStyleShort
+import com.airongomes.taskmanager.util.formatDateTimeStyleLong
 import kotlinx.android.synthetic.main.fragment_new_task.view.*
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class NewTaskViewModel(
-    dataSource: TaskListDao) : ViewModel() {
+        dataSource: TaskListDao,
+        application: Application) : AndroidViewModel(application) {
 
     // Instance of database
     private val database = dataSource
@@ -55,6 +71,17 @@ class NewTaskViewModel(
     // Set allday instead of time
     private var allDay: Boolean = true
 
+    private val alarmManager = application.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    private val notifyIntent = Intent(application, AlarmReceiver::class.java)
+    private val REQUEST_CODE = 0
+    private val notifyPendingIntent: PendingIntent = PendingIntent.getBroadcast(
+    getApplication(),
+    REQUEST_CODE,
+    notifyIntent,
+    PendingIntent.FLAG_UPDATE_CURRENT
+    )
+
+
     /**
      * This function is responsible to insert the task to the database.
      * @param: View: is the ViewGroup from the fragment_new_task
@@ -69,9 +96,8 @@ class NewTaskViewModel(
             task.title = view.new_title.editText?.text.toString()
             task.description = view.new_description.editText?.text.toString()
             task.priority = priorityValue.value!!
-
+            val calendar = Calendar.getInstance()
             timeTask.value?.let {
-                val calendar = Calendar.getInstance()
                 dateTask.value?.get(Calendar.YEAR)?.let { calendar.set(Calendar.YEAR, it) }
                 dateTask.value?.get(Calendar.MONTH)?.let { calendar.set(Calendar.MONTH, it) }
                 dateTask.value?.get(Calendar.DAY_OF_MONTH)?.let { calendar.set(Calendar.DAY_OF_MONTH, it) }
@@ -88,9 +114,31 @@ class NewTaskViewModel(
             viewModelScope.launch {
                 database.insert(task)
             }
+
+            // Create notification - TODO: Implement Alarm Receiver
+//            task.date?.let {
+//                val message = if(task.allDay){
+//                    val timeFormatted = formatDateStyleLong(calendar, getApplication())
+//                    "${task.title} - $timeFormatted"
+//                } else{
+//                    val timeFormatted = formatDateTimeStyleLong(calendar, getApplication())
+//                    "${task.title} - $timeFormatted"
+//                }
+//
+//                createNotification(message)
+//            }
             _saved.value = true
         }
     }
+
+    private fun createNotification(message: String) {
+        val notificationManager = ContextCompat.getSystemService(
+                getApplication(),
+                NotificationManager::class.java
+        ) as NotificationManager
+        notificationManager.sendNotification(message, getApplication())
+    }
+
 
     /**
      * Reset the saved LiveData
