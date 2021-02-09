@@ -9,12 +9,12 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Task Manager Theme -->
-    <color name="primaryColor">#283593</color>
-    <color name="primaryLightColor">#5f5fc4</color>
-    <color name="primaryDarkColor">#001064</color>
-    <color name="secondaryColor">#c2185b</color>
-    <color name="secondaryLightColor">#fa5788</color>
-    <color name="secondaryDarkColor">#8c0032</color>
+    <color name="primaryColor">#00838f</color>
+    <color name="primaryLightColor">#4fb3bf</color>
+    <color name="primaryDarkColor">#005662</color>
+    <color name="secondaryColor">#c51162</color>
+    <color name="secondaryLightColor">#fd558f</color>
+    <color name="secondaryDarkColor">#8e0038</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
 

@@ -6,7 +6,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,10 +18,12 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airongomes.taskmanager.DrawerLockMode
 import com.airongomes.taskmanager.R
 import com.airongomes.taskmanager.adapter.*
 import com.airongomes.taskmanager.database.TaskListDatabase
 import com.airongomes.taskmanager.databinding.FragmentOverviewBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_overview.*
 
 
@@ -180,6 +181,7 @@ class OverviewFragment : Fragment() {
                 updateActionMode()
             }
         }
+
         return binding.root
     }
 
@@ -193,17 +195,6 @@ class OverviewFragment : Fragment() {
         }
     }
 
-    /**
-     * Update Action Mode
-     */
-    fun updateActionMode(){
-        actionMode?.invalidate()
-        // Called when the user long-clicks on recyclerview item
-        if(actionMode == null){
-            actionMode = activity?.startActionMode(actionModeCallback)
-        }
-        actionMode?.title = "${tracker?.selection?.size()} ${getText(R.string.lb_selected)}"
-    }
 
     /**
      * Inflate the OptionsMenu
@@ -231,6 +222,7 @@ class OverviewFragment : Fragment() {
                         Log.i("TAG", "Cancel button clicked")
                     })
             builder.create().show()
+            return true // TODO: it is necessary?
         }
         // Navigate to the fragment it's id is compatible with item.id
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
@@ -238,8 +230,23 @@ class OverviewFragment : Fragment() {
 
     }
 
+    /**
+     * Update Action Mode
+     */
+    fun updateActionMode(){
+        actionMode?.invalidate()
+        // Called when the user long-clicks on recyclerview item
+        if(actionMode == null){
+            actionMode = activity?.startActionMode(actionModeCallback)
+
+            // Set Drawer Locked Closed
+            (activity as DrawerLockMode).setDrawerLocked(true)
+        }
+        actionMode?.title = "${tracker?.selection?.size()} ${getText(R.string.lb_selected)}"
+    }
 
     private val actionModeCallback = object : ActionMode.Callback {
+
         /**
          * Called when Action Mode is created
          */
@@ -249,6 +256,7 @@ class OverviewFragment : Fragment() {
             inflater.inflate(R.menu.contextual_menu, menu)
             return true
         }
+
 
         /**
          * Called when the action mode is show or invalidated
@@ -286,6 +294,9 @@ class OverviewFragment : Fragment() {
         override fun onDestroyActionMode(mode: ActionMode?) {
             actionMode = null
             tracker?.clearSelection()
+
+            // Set Drawer Locked Closed
+            (activity as DrawerLockMode).setDrawerLocked(false)
         }
 
     }
