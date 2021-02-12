@@ -10,12 +10,11 @@ import com.airongomes.taskmanager.overview.OverviewViewModel
  * Provides the TaskDatabaseDao and context to the ViewModel.
  */
 class OverviewViewMolderFactory(
-        private val dataSource: TaskListDao,
-        private val application: Application) : ViewModelProvider.Factory {
+        private val dataSource: TaskListDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
-            return OverviewViewModel(dataSource, application) as T
+            return OverviewViewModel(dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

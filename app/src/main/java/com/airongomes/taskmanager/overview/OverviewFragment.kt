@@ -3,9 +3,12 @@ package com.airongomes.taskmanager.overview
 import OverviewViewMolderFactory
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -56,7 +59,7 @@ class OverviewFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = TaskListDatabase.getInstance(application).taskDatabaseDao
         // Create the ViewModel
-        val viewModelFactory = OverviewViewMolderFactory(dataSource, application)
+        val viewModelFactory = OverviewViewMolderFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         // Associate the ViewModel with the binding.viewModel variable
         binding.viewModel = viewModel

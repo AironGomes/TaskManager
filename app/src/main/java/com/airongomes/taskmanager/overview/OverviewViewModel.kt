@@ -18,8 +18,7 @@ import kotlinx.coroutines.launch
  * @param: dataSource = reference of TaskListDao
  */
 class OverviewViewModel(
-        dataSource: TaskListDao,
-        application: Application) : ViewModel() {
+        dataSource: TaskListDao) : ViewModel() {
 
     // Reference to Dao database
     val database = dataSource
