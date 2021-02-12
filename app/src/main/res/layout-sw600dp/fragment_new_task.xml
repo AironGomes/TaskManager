@@ -156,7 +156,7 @@
             android:textColor="@color/secondaryColor"
             android:textSize="28sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_ok"
-            app:layout_constraintStart_toEndOf="@+id/button_ok" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

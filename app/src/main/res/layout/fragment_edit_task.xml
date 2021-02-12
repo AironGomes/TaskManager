@@ -153,14 +153,14 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_margin="8dp"
             android:contentDescription="@string/button_cancel"
-            android:text="@string/button_cancel"
             android:onClick="@{() -> viewModel.closeEditTask()}"
+            android:text="@string/button_cancel"
             android:textColor="@color/secondaryColor"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/button_save_editTask"
-            app:layout_constraintStart_toEndOf="@+id/button_save_editTask" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
