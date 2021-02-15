@@ -111,7 +111,7 @@ class EditTaskViewModel(
      * Update the task in database
      */
     fun updateTask(view: View) {
-        if (view.edit_title.editText?.text?.isEmpty() == true) {
+        if (view.edit_title.editText?.text?.isBlank() == true) {
             _emptyTitle.value = true
         }
         else {
