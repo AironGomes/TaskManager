@@ -24,7 +24,7 @@ class EditTaskViewModel(
     val database = dataSource
 
     // LiveData of task
-    val task: LiveData<Task>
+    val task: LiveData<Task> = database.getTask(taskKey)
 //    fun getTask() = task.value
 
     // Priority value
@@ -68,7 +68,6 @@ class EditTaskViewModel(
      * Initiate task liveData with database
      */
     init {
-        task = database.getTask(taskKey)
         _priorityValue.value = task.value?.priority
     }
 
@@ -85,11 +84,6 @@ class EditTaskViewModel(
             }
         }
         _allDay.value = task.allDay
-//        if(task.time != null) {
-//            val cal = Calendar.getInstance()
-//            cal.timeInMillis = task.time!!
-//            _timeTask.value = cal
-//        }
     }
 
     /**
@@ -143,7 +137,6 @@ class EditTaskViewModel(
 
             viewModelScope.launch {
                 database.update(task)
-                Log.i("TEST", "SALVO")
             }
             _saved.value = true
         }
