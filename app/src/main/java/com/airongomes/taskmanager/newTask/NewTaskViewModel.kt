@@ -88,7 +88,7 @@ class NewTaskViewModel(
      */
     fun saveTask(view: View) {
 
-        if (view.new_title.editText?.text?.isEmpty() == true) {
+        if (view.new_title.editText?.text?.isBlank() == true) {
             _emptyTitle.value = true
         }
         else {
