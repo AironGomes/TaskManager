@@ -19,7 +19,7 @@ class DetailViewModel(
     val database = dataSource
 
     // LiveData of task
-    val task: LiveData<Task>
+    val task: LiveData<Task> = database.getTask(taskKey)
 //    fun getTask() = task.value
 
     // LiveData to observe when this fragment is closed
@@ -31,13 +31,6 @@ class DetailViewModel(
     private val _editTask = MutableLiveData<Boolean>()
     val editTask: LiveData<Boolean>
         get() = _editTask
-
-    /**
-     * Initiate task liveData with database
-     */
-    init {
-        task = database.getTask(taskKey)
-    }
 
     /**
      * Delete the actual task
