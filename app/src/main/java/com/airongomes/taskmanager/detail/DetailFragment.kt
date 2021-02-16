@@ -82,17 +82,15 @@ class DetailFragment : Fragment() {
      * Called when the items from OptionsMenu is pressed
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             // Navigate to EditTask Fragment
             R.id.editTask -> {
                 this.findNavController().navigate(
-                DetailFragmentDirections.actionDetailFragmentToEditTaskFragment(arguments.taskId))
+                        DetailFragmentDirections.actionDetailFragmentToEditTaskFragment(arguments.taskId))
                 viewModel.editTaskCalled()
+                true
             }
-            else -> this.findNavController().navigate(
-                DetailFragmentDirections.actionDetailFragmentToOverviewFragment()
-            )
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 }
