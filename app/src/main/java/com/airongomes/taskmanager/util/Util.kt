@@ -1,19 +1,13 @@
 package com.airongomes.taskmanager.util
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Build
-import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
-import com.airongomes.taskmanager.R
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
