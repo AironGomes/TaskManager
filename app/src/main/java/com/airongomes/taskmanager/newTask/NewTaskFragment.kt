@@ -5,10 +5,12 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -126,7 +128,7 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
 
-        // Focus change listener to the viewGroup
+        // Hide keyboard if parent View has focus
         binding.constraintLayout.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus){
                 hideKeyboard(view, requireContext())
@@ -138,6 +140,9 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 getString(R.string.task_notification_title),
                 requireContext()
         )
+
+        // Enable the use of Menu
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -152,6 +157,11 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
         Log.i("Log", "onNothingSelected called")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        hideKeyboard(requireView(), requireContext())
+        return super.onOptionsItemSelected(item)
     }
 
     /**
