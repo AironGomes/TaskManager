@@ -159,6 +159,9 @@ class NewTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
         Log.i("Log", "onNothingSelected called")
     }
 
+    /**
+     * Use onOptionsItemSelected to call hideKeyboard
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         hideKeyboard(requireView(), requireContext())
         return super.onOptionsItemSelected(item)
