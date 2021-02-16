@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -147,6 +148,9 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if(hasFocus){
                 hideKeyboard(view, requireContext())
             }}
+
+        // Enable the use of Menu
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -161,6 +165,14 @@ class EditTaskFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
         Log.i("Log", "onNothingSelected called")
+    }
+
+    /**
+     * Use onOptionsItemSelected to call hideKeyboard
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        hideKeyboard(requireView(), requireContext())
+        return super.onOptionsItemSelected(item)
     }
 
     /**
