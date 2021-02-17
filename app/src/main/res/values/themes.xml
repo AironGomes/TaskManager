@@ -24,7 +24,7 @@
 
     <!-- Context Action Mode -->
     <style name="ActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
-        <item name="background">?attr/colorPrimaryVariant</item>
+        <item name="background">@color/primaryDarkColorVariation</item>
         <item name="actionMenuTextColor">@color/white</item>
         <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
     </style>
