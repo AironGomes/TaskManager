@@ -10,9 +10,9 @@ This app was developed in Kotlin with Android Studio IDE.
 
 Was used MVVM architecture, Navigation and Room Database.
 
-## Photos
-<img src="/Screenshot/new_task.png" width=270>
-<img src="/Screenshot/overview.png" width=270>
-<img src="/Screenshot/navigation_drawer.png" width=270>
-<img src="/Screenshot/detail.png" width=270>
+________________________________________________________________________________
 
+### Demo Video:
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=r5pxe3bxN3U"
+target="_blank"><img src="https://github.com/AironGomes/Imagens/blob/main/taskManager.JPG" 
+alt="Home Screen" width="596" height="336" border="10" /></a>
